@@ -35,7 +35,7 @@ your repo access and to practice PR'ing with your team *before* you start
 coding!
 
 - Adelola Abioye #1: [GitHub](https://github.com/Adel-abio) / [LinkedIn](https://linkedin.com/in/adelola-abioye/)
-- Teammate name #2: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
+- Pablo de la Garza #2: [GitHub](https://github.com/pdv88) / [LinkedIn](https://www.linkedin.com/in/pablo-de-la-garza/)
 
    ...
 - Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
