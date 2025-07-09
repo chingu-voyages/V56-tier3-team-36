@@ -39,3 +39,4 @@ coding!
 - Marissa Lamothe #3: [GitHub](https://github.com/msrissaxox) / [LinkedIn](https://www.linkedin.com/in/marissalamothe/)
    
 - Spandan Mahat #4: [GitHub](https://github.com/spandanmahat00) / [LinkedIn](https://linkedin.com/in/liaccountname)
+- Angi Boiciuc #5: [GitHub](https://github.com/codebyangi) / [LinkedIn](https://www.linkedin.com/in/angi-boiciuc)
