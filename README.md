@@ -38,4 +38,4 @@ coding!
 - Pablo de la Garza #2: [GitHub](https://github.com/pdv88) / [LinkedIn](https://www.linkedin.com/in/pablo-de-la-garza/)
 - Marissa Lamothe #3: [GitHub](https://github.com/msrissaxox) / [LinkedIn](https://www.linkedin.com/in/marissalamothe/)
    
-- Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
+- Spandan Mahat #4: [GitHub](https://github.com/spandanmahat00) / [LinkedIn](https://linkedin.com/in/liaccountname)
