@@ -36,6 +36,7 @@ coding!
 
 - Adelola Abioye #1: [GitHub](https://github.com/Adel-abio) / [LinkedIn](https://linkedin.com/in/adelola-abioye/)
 - Pablo de la Garza #2: [GitHub](https://github.com/pdv88) / [LinkedIn](https://www.linkedin.com/in/pablo-de-la-garza/)
-
-   ...
-- Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
+- Marissa Lamothe #3: [GitHub](https://github.com/msrissaxox) / [LinkedIn](https://www.linkedin.com/in/marissalamothe/)
+   
+- Spandan Mahat #4: [GitHub](https://github.com/spandanmahat00) / [LinkedIn](https://linkedin.com/in/liaccountname)
+- Angi Boiciuc #5: [GitHub](https://github.com/codebyangi) / [LinkedIn](https://www.linkedin.com/in/angi-boiciuc)
