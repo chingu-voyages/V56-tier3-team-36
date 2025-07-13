@@ -13,16 +13,19 @@ function Footer() {
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Team Members</h3>
                     <ul class="text-gray-300 text-sm space-y-1">
-                        <li>• Development Team Lead</li>
-                        <li>• Frontend Developer</li>
-                        <li>• Backend Developer</li>
-                        <li>• UI/UX Designer</li>
+                        <li>Adelola Abioye</li>
+                        <li>Nathalie Chejin</li>
+                        <li>Pablo de la Garza</li>
+                        <li>Marissa Lamothe</li>
+                        <li>Spandan Mahat</li>
+                        <li>Angi Boiciuc</li>
+                        <li>Nick Haynes</li>
                     </ul>
                 </div>
                 
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Project Resources</h3>
-                    <a href="#" class="text-blue-400 hover:text-blue-300 text-sm transition-colors">
+                    <a href="https://github.com/chingu-voyages/V56-tier3-team-36" target='_blank' class="text-blue-400 hover:text-blue-300 text-sm transition-colors">
                         🔗 View on GitHub
                     </a>
                 </div>
