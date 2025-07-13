@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate  } from 'react-router-
 import './App.css'
 
 import Home from './pages/Home'
+import PatientInformation from './pages/PatientInformation'
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/patientinformation" element={<PatientInformation />} />
       </Routes>
     </Router>
   )
