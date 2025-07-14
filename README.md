@@ -40,3 +40,4 @@ coding!
    
 - Spandan Mahat #4: [GitHub](https://github.com/spandanmahat00) / [LinkedIn](https://linkedin.com/in/liaccountname)
 - Angi Boiciuc #5: [GitHub](https://github.com/codebyangi) / [LinkedIn](https://www.linkedin.com/in/angi-boiciuc)
+- Nick Haynes #6: [GitHub](https://github.com/nickhaynes) / [LinkedIn](https://www.linkedin.com/in/nickhaynes/)
