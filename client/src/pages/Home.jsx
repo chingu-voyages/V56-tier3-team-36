@@ -1,10 +1,14 @@
 import React from 'react'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
+
 function Home() {
   return (
-    <div className='w-full h-full flex items-center justify-center'>
- <Header />
- </div>
+    <>
+    <Header />
+      <div className='w-full h-full flex items-center justify-center'>Home</div>
+      <Footer />
+    </>
   )
 }
 
