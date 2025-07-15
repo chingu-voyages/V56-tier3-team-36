@@ -7,7 +7,8 @@
     "start": "npm run dev"
   },
   "dependencies": {
-    "concurrently": "^7.0.0"
+    "concurrently": "^7.0.0",
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "prettier": "^3.6.2"

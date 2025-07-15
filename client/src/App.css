@@ -2,8 +2,12 @@
 
 @theme {
   --color-blue-background: #f5f9fd;
+  --color-blue-search-background: #dbe9fe;
 }
 
+.status-flow-guide-button {
+  @apply pr-4 border-2 border-gray-200 p-2 rounded-2xl font-bold text-sm;
+}
 
 #root {
   height: 100vh;
