@@ -16,8 +16,9 @@ export default function PatientStatus(){
     { patientNo: 'PT0003', currentStatus: 'In-progress' },     
     { patientNo: 'PT0004', currentStatus: 'Closing' },          
     { patientNo: 'PT0005', currentStatus: 'Recovery' },      
-    { patientNo: 'PT0006', currentStatus: 'Complete' },      
-    { patientNo: 'PT0007', currentStatus: 'Dismissal' }    
+    { patientNo: 'PT0006', currentStatus: 'Complete' }, 
+    { patientNo: 'PT0007', currentStatus: 'Dismissal' },    
+    { patientNo: 'PTTEST', currentStatus: 'Closing' }    
   ];
 
   //Create the table
