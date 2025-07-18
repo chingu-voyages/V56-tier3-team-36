@@ -1,0 +1,19 @@
+.table-container {
+    overflow-x: auto;
+  }
+  
+  .simple-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .simple-table th,
+  .simple-table td {
+    border: 1px solid #000;
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  .simple-table th {
+    font-weight: bold;
+  }
