@@ -1,43 +1,93 @@
-# voyage-tasks
+# Surgery Status Board
 
-Your project's `readme` is as important to success as your code. For 
-this reason you should put as much care into its creation and maintenance
-as you would any other component of the application.
+A modern, family-friendly web app for tracking surgical progress and patient status in real time.
 
-If you are unsure of what should go into the `readme` let this article,
-written by an experienced Chingu, be your starting point - 
-[Keys to a well written README](https://tinyurl.com/yk3wubft).
+## 📝 Requirements
 
-And before we go there's "one more thing"! Once you decide what to include
-in your `readme` feel free to replace the text we've provided here.
+Surgery Status Board requires [**Node.JS**](https://nodejs.org/) version `20.19.0` or higher, or version `22.12.0` or higher to run this project. Use of Node 21 or earlier versions of Node is not supported and will cause engine warnings or errors.
 
-> Own it & Make it your Own!
+We further recommend [**Node Package Manager (NPM)**](https://www.npmjs.com/package/npm/) version `9.0.0` or higher to match Node and avoid engine warnings.
 
-## Team Documents
+## ⚡️ Quick start
 
-You may find these helpful as you work together to organize your project.
+1. **Install dependencies:**
 
-- [Team Project Ideas](./docs/team_project_ideas.md)
-- [Team Decision Log](./docs/team_decision_log.md)
+```bash
+npm install
+```
 
-Meeting Agenda templates (located in the `/docs` directory in this repo):
+2. **Start the development server:**
 
-- Meeting - Voyage Kickoff --> ./docs/meeting-voyage_kickoff.docx
-- Meeting - App Vision & Feature Planning --> ./docs/meeting-vision_and_feature_planning.docx
-- Meeting - Sprint Retrospective, Review, and Planning --> ./docs/meeting-sprint_retrospective_review_and_planning.docx
-- Meeting - Sprint Open Topic Session --> ./docs/meeting-sprint_open_topic_session.docx
+```bash
+npm run dev
+```
 
-## Our Team
+3. **Build for production:**
 
-Everyone on your team should add their name along with a link to their GitHub
-& optionally their LinkedIn profiles below. Do this in Sprint #1 to validate
-your repo access and to practice PR'ing with your team *before* you start
-coding!
+```bash
+npm run build
+```
 
-- Adelola Abioye #1: [GitHub](https://github.com/Adel-abio) / [LinkedIn](https://linkedin.com/in/adelola-abioye/)
-- Pablo de la Garza #2: [GitHub](https://github.com/pdv88) / [LinkedIn](https://www.linkedin.com/in/pablo-de-la-garza/)
-- Marissa Lamothe #3: [GitHub](https://github.com/msrissaxox) / [LinkedIn](https://www.linkedin.com/in/marissalamothe/)
-   
-- Spandan Mahat #4: [GitHub](https://github.com/spandanmahat00) / [LinkedIn](https://linkedin.com/in/liaccountname)
-- Angi Boiciuc #5: [GitHub](https://github.com/codebyangi) / [LinkedIn](https://www.linkedin.com/in/angi-boiciuc)
-- Nick Haynes #6: [GitHub](https://github.com/nickhaynes) / [LinkedIn](https://www.linkedin.com/in/nickhaynes/)
+## ✨ Features
+
+- Real-time surgery status updates
+- Family-friendly UI
+- Privacy protection
+- Responsive design
+
+## 💻 Tech Stack/Key Dependencies
+
+Surgery Status Board is currently built using the following technologies:
+
+- **[React](https://www.npmjs.com/package/react):** `^19.1.0`
+- **[React DOM](https://www.npmjs.com/package/react-dom):** `^19.1.0`
+- **[React Router DOM](https://www.npmjs.com/package/react-router-dom):** `^7.6.3`
+- **[Vite](https://www.npmjs.com/package/vite):** `^7.0.4`
+- **[Tailwind CSS](https://www.npmjs.com/package/tailwindcss):** `^4.1.11`
+- **[@tailwindcss/vite](https://www.npmjs.com/package/@tailwindcss/vite):** `^4.1.11`
+- **[React Icons](https://www.npmjs.com/package/react-icons):** `^5.5.0`
+- **[ESLint](https://www.npmjs.com/package/eslint):** `^9.30.1`
+- **[@vitejs/plugin-react](https://www.npmjs.com/package/@vitejs/plugin-react):** `^4.6.0`
+
+Eventual backend is yet to be determined.
+
+## 📁 Folder Structure
+
+```
+V56-tier3-team-36/
+├── client/                # Frontend (React, Vite, Tailwind)
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── App.css
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── package.json
+│   ├── vite.config.js
+│   └── ...
+├── server/                # Backend (Node.js, Express)
+│   ├── server.js
+│   ├── package.json
+│   └── .env
+├── README.md
+├── .gitignore
+└── ...
+```
+
+## 👥👥 Our Team
+
+- Adelola Abioye: [GitHub](https://github.com/Adel-abio) / [LinkedIn](https://linkedin.com/in/adelola-abioye/)
+- Angi Boiciuc: [GitHub](https://github.com/codebyangi) / [LinkedIn](https://www.linkedin.com/in/angi-boiciuc)
+- Pablo de la Garza: [GitHub](https://github.com/pdv88) / [LinkedIn](https://www.linkedin.com/in/pablo-de-la-garza/)
+- Nick Haynes: [GitHub](https://github.com/nickhaynes) / [LinkedIn](https://www.linkedin.com/in/nickhaynes/)
+- Marissa Lamothe: [GitHub](https://github.com/msrissaxox) / [LinkedIn](https://www.linkedin.com/in/marissalamothe/)
+- Spandan Mahat: [GitHub](https://github.com/spandanmahat00) / [LinkedIn](https://linkedin.com/in/liaccountname)
+
+## 🏢 About Chingu
+
+This project is part of the [Chingu Voyage](https://www.chingu.io/) program, a global community that connects developers of all skill levels to collaborate on real-world projects. Chingu provides a supportive environment for learning, teamwork, and professional growth through hands-on experience building software in remote teams.
+
+## ⚠️ License
+
+MIT License
