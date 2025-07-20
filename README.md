@@ -10,7 +10,13 @@ We further recommend [**Node Package Manager (NPM)**](https://www.npmjs.com/pack
 
 ## ⚡️ Quick start
 
-1. **Install dependencies:**
+1a. **If you are not in the `client` folder, move there:**
+
+```bash
+cd client
+```
+
+1b. **Once in the `client` folder, install dependencies:**
 
 ```bash
 npm install
