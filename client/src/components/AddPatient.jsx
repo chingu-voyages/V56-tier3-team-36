@@ -56,7 +56,7 @@ export default function AddPatient() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <div className="bg-[#3d3b3b] p-4 mt-10 text-white">
+        <div className="bg-[#FFFFFF] p-4 mt-10 text-black">
           <div className="flex items-start">
             <span>👤</span>
             <span className="font-bold ml-2">Patient identification</span>
@@ -67,7 +67,7 @@ export default function AddPatient() {
               type="text"
               value={patientID}
               readOnly
-              className="border border-black rounded p-2 bg-[#2e2e2e] text-white"
+              className="border-2 border-gray-300 rounded p-2 bg-[#F9FAFB] text-black"
             />
             <div className="mt-1 text-sm">
               Unique 6-character identifier (auto-generated for new patients)
@@ -75,7 +75,7 @@ export default function AddPatient() {
           </div>
         </div>
 
-        <div className="bg-[#3d3b3b] p-4 mt-10 text-white">
+        <div className="bg-[#FFFFFF] p-4 mt-10 text-black">
           <div className="flex items-center mb-4">
             <span className="mr-2">🧑</span>
             <span className="font-bold">Personal Information</span>
@@ -92,7 +92,7 @@ export default function AddPatient() {
                 value={formData.firstName}
                 onChange={handleChange}
                 placeholder="Enter first name"
-                className="border border-black rounded p-2 w-full bg-[#2e2e2e] text-white placeholder-gray-400"
+                className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
               />
             </div>
 
@@ -106,7 +106,7 @@ export default function AddPatient() {
                 value={formData.lastName}
                 onChange={handleChange}
                 placeholder="Enter last name"
-                className="border border-black rounded p-2 w-full bg-[#2e2e2e] text-white placeholder-gray-400"
+                className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
               />
             </div>
 
@@ -120,7 +120,7 @@ export default function AddPatient() {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="(577) 123-4567"
-                className="border border-black rounded p-2 w-full bg-[#2e2e2e] text-white placeholder-gray-400"
+                className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
               />
             </div>
 
@@ -134,7 +134,7 @@ export default function AddPatient() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="contact@example.com"
-                className="border border-black rounded p-2 w-full bg-[#2e2e2e] text-white placeholder-gray-400"
+                className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
               />
               <div className="text-sm text-gray-300 mt-1">
                 Email of person waiting for patient
@@ -143,7 +143,7 @@ export default function AddPatient() {
           </div>
         </div>
 
-        <div className="bg-[#3d3b3b] p-4 mt-10 text-white">
+        <div className="bg-[#FFFFFF] p-4 mt-10 text-black">
           <div className="flex items-center mb-4">
             <span className="mr-2">🏠</span>
             <span className="font-bold">Address Information</span>
@@ -159,7 +159,7 @@ export default function AddPatient() {
               value={formData.street}
               onChange={handleChange}
               placeholder="123 Main Street"
-              className="border border-black rounded p-2 w-full bg-[#2e2e2e] text-white placeholder-gray-400"
+              className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
             />
           </div>
 
@@ -174,7 +174,7 @@ export default function AddPatient() {
                 value={formData.city}
                 onChange={handleChange}
                 placeholder="Enter city"
-                className="border border-black rounded p-2 w-full bg-[#2e2e2e] text-white placeholder-gray-400"
+                className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
               />
             </div>
 
@@ -188,7 +188,7 @@ export default function AddPatient() {
                 value={formData.state}
                 onChange={handleChange}
                 placeholder="State, Province, or Region"
-                className="border border-black rounded p-2 w-full bg-[#2e2e2e] text-white placeholder-gray-400"
+                className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
               />
             </div>
           </div>
@@ -201,7 +201,7 @@ export default function AddPatient() {
               name="country"
               value={formData.country}
               onChange={handleChange}
-              className="border border-black rounded p-2 w-full bg-[#2e2e2e] text-white"
+              className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black"
             >
               <option>Select Country</option>
               <option>USA</option>
@@ -213,14 +213,14 @@ export default function AddPatient() {
         <div className="mt-6">
           <button
             type="submit"
-            className="!bg-green-600 text-white px-6 py-2 rounded"
+            className="!bg-green-600 text-black px-6 py-2 rounded"
           >
             Add Patient
           </button>
         </div>
       </form>
       {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-[#F9FAFB] bg-opacity-70 z-50">
           <div className="bg-white p-6 rounded shadow-md text-black">
             <h2 className="text-xl font-bold mb-2">
               Form submission successful
@@ -228,7 +228,7 @@ export default function AddPatient() {
             <p>Patient added to the system successfully.</p>
             <button
               onClick={() => setShowPopup(false)}
-              className="mt-4 px-4 py-2 bg-green-600 text-white rounded"
+              className="mt-4 px-4 py-2 bg-green-600 text-black rounded"
             >
               Close
             </button>
