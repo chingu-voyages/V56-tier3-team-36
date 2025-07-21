@@ -49,9 +49,13 @@ export default function Header() {
             Last Updated:{" "}
             {initialRenderTime.toLocaleTimeString(undefined, shortTimeOptions)}
           </h3>
-          <div className="flex flex-col md:flex-row gap-2 mt-2">
+<div className="flex flex-col w-full items-stretch md:flex-row gap-2 mt-2">
+<div className="w-full">
           <AdminLogInBtn />
+   </div>
+        <div className="w-full">
           <SurgicalTeamLogInBtn />
+</div>
 </div>
         </div>
       </header>
