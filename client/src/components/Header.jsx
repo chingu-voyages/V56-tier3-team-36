@@ -30,7 +30,7 @@ export default function Header() {
 
   return (
     <div className="w-full">
-      <header className="text-black font-bold flex items-center justify-between top-0 left-0 fixed w-full bg-white">
+      <header className="text-white bg-gray-800 font-bold flex items-center justify-between top-0 left-0 fixed w-full">
         <div className="flex items-center">
           <BsHospital className="md:text-6xl text-3xl m-4 text-blue-600" />
           <div className="flex flex-col justify-items-start items-start">
