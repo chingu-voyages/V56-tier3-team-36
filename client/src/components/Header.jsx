@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BsHospital } from "react-icons/bs";
+import AdminLogInBtn from "./AdminLogInBtn";
+
 
 export default function Header() {
   const [now, setNow] = React.useState(new Date());
@@ -47,6 +49,8 @@ export default function Header() {
             Last Updated:{" "}
             {initialRenderTime.toLocaleTimeString(undefined, shortTimeOptions)}
           </h3>
+          <AdminLogInBtn />
+          
         </div>
       </header>
     </div>
