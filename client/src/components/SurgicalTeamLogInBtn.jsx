@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import React from "react";
-export default function AdminLogInBtn() {
+export default function SurgicalTeamLogInBtn() {
     return (
-       <Link to="/patientinformation" className="flex items-center justify-center">
+       <Link to="/patientstatusupdate" className="flex items-center justify-center">
        <button className="bg-blue-600 text-white px-2 py-2 rounded-xl hover:bg-blue-700">
-        Admin Login
+        Surgical Team Login
         </button>
         </Link>
     );

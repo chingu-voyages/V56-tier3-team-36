@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BsHospital } from "react-icons/bs";
 import AdminLogInBtn from "./AdminLogInBtn";
-
+import SurgicalTeamLogInBtn from "./SurgicalTeamLogInBtn";
 
 export default function Header() {
   const [now, setNow] = React.useState(new Date());
@@ -49,8 +49,10 @@ export default function Header() {
             Last Updated:{" "}
             {initialRenderTime.toLocaleTimeString(undefined, shortTimeOptions)}
           </h3>
+          <div className="flex flex-col md:flex-row gap-2 mt-2">
           <AdminLogInBtn />
-          
+          <SurgicalTeamLogInBtn />
+</div>
         </div>
       </header>
     </div>
