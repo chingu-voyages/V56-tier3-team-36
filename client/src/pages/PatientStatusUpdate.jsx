@@ -7,7 +7,7 @@ export default function PatientStatusUpdate() {
     return (
         <div>
         <Header />
-        <div className="bg-blue-background pt-40">
+        <div className="bg-blue-background pt-60">
         <h1 className='text-4xl font-bold'>Patient Status Update</h1>
         <p className='text-xl text-gray-600 p-6 '>Update patient status throughout the surgical journey. Enter patient number to begin.</p>
     <StatusFlowGuide /> 
