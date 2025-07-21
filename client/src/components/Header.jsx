@@ -34,8 +34,8 @@ export default function Header() {
         <div className="flex items-center">
           <BsHospital className="md:text-6xl text-3xl m-4 text-blue-600" />
           <div className="flex flex-col justify-items-start items-start">
-            <h1 className="text-left md:text-3xl text-lg">Surgery Status Board</h1>
-            <h2 className="font-medium text-sm">St. Mary's Medical Center</h2>
+            <h1 className="text-left md:text-3xl text-lg">SurgiTrack</h1>
+            <h2 className="font-medium text-sm">Track your loved one's procedure</h2>
           </div>
         </div>
         <div className="m-4 flex flex-col justify-items-center items-end">
