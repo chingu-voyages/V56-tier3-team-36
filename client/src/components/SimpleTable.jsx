@@ -8,15 +8,13 @@ export default function SimpleTable({ columns, rows }) {
       case 'Pre-Procedure':
         return '#FEF3C7'; // light yellow
       case 'In-progress':
-        return '#FDE68A'; // soft orange
+        return '#FECACA'; // red -ish
       case 'Closing':
         return '#E9D5FF'; // purple-ish
       case 'Recovery':
-        return '#D1FAE5'; // green-ish
+        return '#FBBF77'; // light orange
       case 'Complete':
-        return '#E5E7EB'; // gray
-      case 'Dismissal':
-        return '#FECACA'; // red-ish
+        return '#D1FAE5'; // green-ish
       default:
         return 'transparent';
     }

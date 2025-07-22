@@ -22,19 +22,32 @@ export default function PatientStatus(){
   ];
 
   //Create the table
-  const rows = [];
-  patients.map(
-    (patient) => rows.push(
-      createRow(
-        columns,
-        [ 
+  // const rows = [];
+  // patients.map(
+  //   (patient) => rows.push(
+  //     createRow(
+  //       columns,
+  //       [ 
+  //       patient.patientNo,
+  //       patient.currentStatus
+  //       ]
+  //     )
+  //   )
+  // );
+const rows = patients
+  .filter((patient) => {
+    const status = patient.currentStatus?.trim(); // Removes empty/null statuses
+    return status && status !== "Dismissal"; //Removes Patients with Dismissal Status
+  })
+  .map((patient) =>
+    createRow(
+      columns,
+      [
         patient.patientNo,
         patient.currentStatus
-        ]
-      )
+      ]
     )
   );
-
 
   return(
     <div className="min-h-screen flex flex-col justify-between">
