@@ -1,5 +1,5 @@
 .table-container {
-    overflow-x: auto;
+    height: 200px;
     padding: 16px;
   }
   
@@ -8,7 +8,9 @@
     border-collapse: separate;
     border-spacing: 0 10px; 
   }
-  
+  .simple-table tbody tr {
+  height: 20px; 
+}
   .simple-table th,
   .simple-table td {
     border: 1px solid #e5e7eb;

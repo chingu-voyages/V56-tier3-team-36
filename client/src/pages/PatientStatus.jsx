@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer"
 import SimpleTable from "../components/SimpleTable"
 import { createRow } from "../components/CreateRow";
@@ -17,29 +18,47 @@ export default function PatientStatus(){
     { patientNo: 'PT0004', currentStatus: 'Closing' },          
     { patientNo: 'PT0005', currentStatus: 'Recovery' },      
     { patientNo: 'PT0006', currentStatus: 'Complete' }, 
-    { patientNo: 'PT0007', currentStatus: 'Dismissal' },    
-    { patientNo: 'PTTEST', currentStatus: 'Closing' }    
+    { patientNo: 'PT0007', currentStatus: 'Dismissal' },   
+    { patientNo: 'PT0008', currentStatus: 'Checked In' },        
+    { patientNo: 'PT0009', currentStatus: 'Pre-Procedure' },     
+    { patientNo: 'PT0010', currentStatus: 'In-progress' },     
+    { patientNo: 'PT0011', currentStatus: 'Closing' },          
+    { patientNo: 'PT0012', currentStatus: 'Recovery' },      
+    { patientNo: 'PT0013', currentStatus: 'Complete' }, 
+    { patientNo: 'PT0014', currentStatus: 'Dismissal' }, 
+    { patientNo: 'PT0015', currentStatus: 'Checked In' },        
+    // { patientNo: 'PT0016', currentStatus: 'Pre-Procedure' },     
+    // { patientNo: 'PT0017', currentStatus: 'In-progress' },     
+    // { patientNo: 'PT0018', currentStatus: 'Closing' },          
+    // { patientNo: 'PT0019', currentStatus: 'Recovery' },      
+    // { patientNo: 'PT0020', currentStatus: 'Complete' }, 
+    // { patientNo: 'PT0021', currentStatus: 'Dismissal' },
+    { patientNo: 'PTTE22', currentStatus: 'Closing' }    
   ];
 
-  //Create the table
-  // const rows = [];
-  // patients.map(
-  //   (patient) => rows.push(
-  //     createRow(
-  //       columns,
-  //       [ 
-  //       patient.patientNo,
-  //       patient.currentStatus
-  //       ]
-  //     )
-  //   )
-  // );
-const rows = patients
-  .filter((patient) => {
-    const status = patient.currentStatus?.trim(); // Removes empty/null statuses
+  const filteredPatients = patients
+  .filter((p) => {
+    const status = p.currentStatus?.trim(); // Removes empty/null statuses
     return status && status !== "Dismissal"; //Removes Patients with Dismissal Status
   })
-  .map((patient) =>
+
+  const pageSize = 8; // 8 Records to be on each page
+  const totalPages = Math.ceil(filteredPatients.length / pageSize);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentPage((prevPage) => (prevPage + 1) % totalPages);
+    }, 20000);
+    return () => clearInterval(interval); 
+  }, [totalPages]);
+
+  const patientsPerPage = filteredPatients.slice(
+    currentPage * pageSize,
+    currentPage * pageSize + pageSize
+  );
+
+  let rows = patientsPerPage.map((patient) =>
     createRow(
       columns,
       [
@@ -54,7 +73,9 @@ const rows = patients
       <div className="flex flex-col items-center pt-8">
         <h1 className="text-2xl font-bold mb-6">Patient Status</h1>
         <div className="w-full flex justify-center">
-          <SimpleTable columns={columns} rows={rows} />
+          <div className="w-full max-w-2xl">
+        <SimpleTable columns={columns} rows={rows} />
+      </div>
         </div>
       </div>
       <Footer />
