@@ -1,36 +1,35 @@
-import './Table.css';
+import React from "react";
 
 export default function SimpleTable({ columns, rows }) {
   const getStatusColor = (status) => {
     switch (status) {
       case 'Checked In':
-        return '#DBEAFE'; // light blue
+        return 'bg-blue-100'; 
       case 'Pre-Procedure':
-        return '#FEF3C7'; // light yellow
+        return 'bg-yellow-100'; 
       case 'In-progress':
-        return '#FECACA'; // red -ish
+        return 'bg-red-200'; 
       case 'Closing':
-        return '#E9D5FF'; // purple-ish
+        return 'bg-purple-200'; 
       case 'Recovery':
-        return '#FBBF77'; // light orange
+        return 'bg-orange-200'; 
       case 'Complete':
-        return '#D1FAE5'; // green-ish
+        return 'bg-green-100'; 
       default:
         return 'transparent';
     }
   }; 
 
   return (
-    <div className='table-container'>
-      <table className="w-full table-fixed border-collapse simple-table">
+    <div className="h-[200px] p-4">
+      <table className="w-full table-fixed border-separate border-spacing-y-2">
         <thead>
           <tr>
             {columns.map((column) => (
-              <th key={column.id} style={{ 
-                textAlign: 'center', 
-                backgroundColor: '#F9FAFB', 
-                padding: '8px',
-              }}>
+              <th 
+                key={column.id} 
+                classname="text-center bg-gray-100 p-2 font-bold border border-gray-300"
+              >
                 {column.label}
               </th>
             ))}
@@ -49,11 +48,7 @@ export default function SimpleTable({ columns, rows }) {
                 return (
                   <td
                     key={column.id}
-                    style={{
-                      textAlign: 'center',
-                      backgroundColor,
-                      padding: '8px',
-                    }}
+                    className={`text-center p-2 border border-gray-300 ${backgroundColor}`}
                   >
                     {value}
                   </td>

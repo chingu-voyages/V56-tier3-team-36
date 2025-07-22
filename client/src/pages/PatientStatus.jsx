@@ -6,7 +6,7 @@ import { createRow } from "../components/CreateRow";
 export default function PatientStatus(){
      // Table columns configuration.
   const columns = [
-    { id: 'patientNo', label: 'Patient No:', minWidth: 100 },
+    { id: 'patientNo', label: 'Patient No.', minWidth: 100 },
     { id: 'currentStatus', label: 'Current Status', minWidth: 100 }
   ];  
   
@@ -23,10 +23,6 @@ export default function PatientStatus(){
     { patientNo: 'PT0009', currentStatus: 'Pre-Procedure' },     
     { patientNo: 'PT0010', currentStatus: 'In-progress' },     
     { patientNo: 'PT0011', currentStatus: 'Closing' },          
-    { patientNo: 'PT0012', currentStatus: 'Recovery' },      
-    { patientNo: 'PT0013', currentStatus: 'Complete' }, 
-    { patientNo: 'PT0014', currentStatus: 'Dismissal' }, 
-    { patientNo: 'PT0015', currentStatus: 'Checked In' },        
     // { patientNo: 'PT0016', currentStatus: 'Pre-Procedure' },     
     // { patientNo: 'PT0017', currentStatus: 'In-progress' },     
     // { patientNo: 'PT0018', currentStatus: 'Closing' },          
