@@ -1,17 +1,17 @@
 .table-container {
     overflow-x: auto;
+    padding: 16px;
   }
   
   .simple-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0 10px; 
   }
   
   .simple-table th,
   .simple-table td {
-    border: 1px solid #000;
-    padding: 8px;
-    font-size: 14px;
+    border: 1px solid #e5e7eb;
   }
   
   .simple-table th {

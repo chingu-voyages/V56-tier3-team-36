@@ -30,6 +30,7 @@ export default function SimpleTable({ columns, rows }) {
                 minWidth: column.minWidth, 
                 textAlign: 'center', 
                 backgroundColor: '#F9FAFB', 
+                padding: '8px',
               }}>
                 {column.label}
               </th>
@@ -50,6 +51,7 @@ export default function SimpleTable({ columns, rows }) {
                   <td
                     key={column.id}
                     style={{
+                      minWidth: column.minWidth,
                       textAlign: 'center',
                       backgroundColor,
                       padding: '8px',
