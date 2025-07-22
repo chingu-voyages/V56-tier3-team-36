@@ -21,7 +21,7 @@ export default function SimpleTable({ columns, rows }) {
   }; 
 
   return (
-    <div className="h-[200px] p-4">
+    <div className="p-4 min-h-0">
       <table className="w-full table-fixed border-separate border-spacing-y-2">
         <thead>
           <tr>

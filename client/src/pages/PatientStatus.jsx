@@ -65,13 +65,11 @@ export default function PatientStatus(){
   );
 
   return(
-    <div className="min-h-screen flex flex-col justify-between">
-      <div className="flex flex-col items-center pt-8">
+    <div className="min-h-screen flex flex-col">
+      <div className="flex-grow flex flex-col items-center">
         <h1 className="text-2xl font-bold mb-6">Patient Status</h1>
-        <div className="w-full flex justify-center">
-          <div className="w-full max-w-2xl">
-        <SimpleTable columns={columns} rows={rows} />
-      </div>
+        <div className="w-full max-w-2xl overflow-auto">
+            <SimpleTable columns={columns} rows={rows} />
         </div>
       </div>
       <Footer />
