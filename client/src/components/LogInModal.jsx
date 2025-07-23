@@ -3,7 +3,9 @@ import React from 'react'
 import { useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { UserIcon } from '@heroicons/react/24/outline'
-import Btn from './Btn'
+// import Btn from './Btn'
+import { users } from '../assets/data/users'
+
 
 export function LogInModal({ onClose }) {
   const [open, setOpen] = useState(true)
@@ -12,6 +14,32 @@ export function LogInModal({ onClose }) {
     setOpen(false)
     onClose() // Call the onClose prop from Header
   }
+
+const userName = users.map((user)=> user.username)
+const password = users.map((user)=> user.password)
+
+const handleLogin =(e) => {
+    e.preventDefault();
+    const usernameInput = e.target.username.value;
+    const passwordInput = e.target.password.value;
+
+  
+    
+
+    if (usernameInput === "admin" && passwordInput === "admin123") {
+        console.log("Admin logged in");
+        // Redirect to admin dashboard or perform admin actions
+    }
+
+    else if (usernameInput === "surgeon" && passwordInput === "surgeon123") {
+        console.log("Surgical team logged in");
+        // Redirect to surgical team dashboard or perform surgical team actions
+    }
+    else {
+          console.log("Invalid username or password");
+        // Show an error message or handle invalid login
+    }
+}
 
   return (
     <Dialog open={open} onClose={handleClose} className="relative z-10">
@@ -44,6 +72,7 @@ export function LogInModal({ onClose }) {
                         type="text" 
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter username"
+                        name="username"
                       />
                     </div>
                     <div>
@@ -51,22 +80,27 @@ export function LogInModal({ onClose }) {
                         Password
                       </label>
                       <input 
-                        type="password" 
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700"
                         placeholder="Enter password"
+                        name="password"
                       />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+<form onSubmit={handleLogin}>
             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+              
+              
               <button
+         
                 type="button"
                 className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-blue-700 sm:ml-3 sm:w-auto"
               >
                 Login
               </button>
+
               <button
                 type="button"
                 onClick={handleClose}
@@ -75,6 +109,7 @@ export function LogInModal({ onClose }) {
                 Cancel
               </button>
             </div>
+            </form>
             <div className="px-4 py-3 text-sm">
                 <p className="font-bold">Demo Accounts:</p>
                 <p><span className="font-bold">Admin:</span> admin / admin123</p>
