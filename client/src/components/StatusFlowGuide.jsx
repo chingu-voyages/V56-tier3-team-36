@@ -2,10 +2,10 @@ import { BiSolidRightArrow } from "react-icons/bi";
 
 export default function StatusFlowGuide() {
     return (
-        <div className="bg-white p-4 m-8 rounded-2xl shadow-lg">
+        <div className="bg-white p-4 m-8 rounded-2xl shadow-lg flex items-center flex-col">
             <h2 className="text-2xl font-bold mb-6">Status Flow Guide</h2>
            <div className="flex flex-row justify-between mb-4">
-            <ol className="flex flex-row flex-wrap gap-2 pl-2 justify-start items-center">
+            <ol className="flex flex-row flex-wrap gap-2 pl-2 justify-center items-center">
                 
                 <div className="flex flex-row justify-center items-center gap-2">
                     <li className="status-flow-guide-button">1. Checked In </li>
