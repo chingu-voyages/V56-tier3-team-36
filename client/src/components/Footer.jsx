@@ -32,7 +32,7 @@ function Footer() {
             </div>
             
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 text-sm">
-                <p>© 2024 Surgery Status Board. Built with care for families and medical professionals.</p>
+                <p>© {new Date().getFullYear()} Surgery Status Board. Built with care for families and medical professionals.</p>
             </div>
         </div>
     </footer>
