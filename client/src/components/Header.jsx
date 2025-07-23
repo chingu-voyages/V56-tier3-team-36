@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { BsHospital } from "react-icons/bs";
+import Btn from "./Btn";
+import { LogInModal } from "./LogInModal";
+
 
 export default function Header() {
   const [now, setNow] = React.useState(new Date());
   const [initialRenderTime] = useState(new Date()); // No 'setInitialRenderTime' needed if it never changes
+  const [showModal, setShowModal] = useState(false); // Add modal state
+
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -28,6 +33,12 @@ export default function Header() {
     hour12: true, // "PM"
   };
 
+  const logIn = () => {
+setShowModal(true); // Show the modal
+    console.log("Login button clicked");
+    
+  };
+
   return (
     <div className="w-full">
       <header className="text-white bg-gray-800 font-bold flex items-center justify-between top-0 left-0 fixed w-full">
@@ -43,12 +54,17 @@ export default function Header() {
           <h3 className="md:text-sm text-xs font-medium">
             {now.toLocaleDateString(undefined, fullDateOptions)}
           </h3>
-          <h3 className="text-blue-600 font-bold text-sm">
+          <h3 className="text-blue-600 font-bold text-sm mb-2">
             Last Updated:{" "}
             {initialRenderTime.toLocaleTimeString(undefined, shortTimeOptions)}
           </h3>
+          <Btn text="Login"
+          onClick={logIn}
+        
+          />
         </div>
       </header>
+      {showModal && <LogInModal onClose={() => setShowModal(false)} /> }
     </div>
   );
 }
