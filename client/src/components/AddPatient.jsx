@@ -1,23 +1,14 @@
 import { useState, useEffect } from "react";
+import { BsPersonFill,BsPersonVcard } from "react-icons/bs";
+import { IoLocationSharp } from "react-icons/io5";
+import SixDigitGeneration from "./SixDigitGeneration";
+import PersonalInformation from "./PersonalInformation";
+import AddressInformation from "./AddressInformation";
 
-function generatePatientID() {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let id = "";
-  for (let i = 0; i < 6; i++) {
-    id += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return id;
-}
 
 export default function AddPatient() {
   const [patientID, setPatientID] = useState("");
-  const [mode, setMode] = useState("add");
   const [showPopup, setShowPopup] = useState(false);
-
-  useEffect(() => {
-    const id = generatePatientID();
-    setPatientID(id);
-  }, []);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -55,161 +46,10 @@ export default function AddPatient() {
 
   return (
     <div>
+      <SixDigitGeneration patientID={patientID} setPatientID={setPatientID}/>
       <form onSubmit={handleSubmit}>
-        <div className="bg-[#FFFFFF] p-4 mt-10 text-black">
-          <div className="flex items-start">
-            <span>👤</span>
-            <span className="font-bold ml-2">Patient identification</span>
-          </div>
-          <div className="flex flex-col items-start mt-2">
-            <div>Patient Number</div>
-            <input
-              type="text"
-              value={patientID}
-              readOnly
-              className="border-2 border-gray-300 rounded p-2 bg-[#F9FAFB] text-black"
-            />
-            <div className="mt-1 text-sm">
-              Unique 6-character identifier (auto-generated for new patients)
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-[#FFFFFF] p-4 mt-10 text-black">
-          <div className="flex items-center mb-4">
-            <span className="mr-2">🧑</span>
-            <span className="font-bold">Personal Information</span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <div className="mb-1">
-                First Name <span className="text-red-500">*</span>
-              </div>
-              <input
-                type="text"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                placeholder="Enter first name"
-                className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
-              />
-            </div>
-
-            <div>
-              <div className="mb-1">
-                Last Name <span className="text-red-500">*</span>
-              </div>
-              <input
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                placeholder="Enter last name"
-                className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
-              />
-            </div>
-
-            <div>
-              <div className="mb-1">
-                Telephone Number <span className="text-red-500">*</span>
-              </div>
-              <input
-                name="phone"
-                type="text"
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder="(577) 123-4567"
-                className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
-              />
-            </div>
-
-            <div>
-              <div className="mb-1">
-                Contact Email Address <span className="text-red-500">*</span>
-              </div>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="contact@example.com"
-                className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
-              />
-              <div className="text-sm text-gray-300 mt-1">
-                Email of person waiting for patient
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-[#FFFFFF] p-4 mt-10 text-black">
-          <div className="flex items-center mb-4">
-            <span className="mr-2">🏠</span>
-            <span className="font-bold">Address Information</span>
-          </div>
-
-          <div className="mb-4">
-            <div className="mb-1">
-              Street Address <span className="text-red-500">*</span>
-            </div>
-            <input
-              name="street"
-              type="text"
-              value={formData.street}
-              onChange={handleChange}
-              placeholder="123 Main Street"
-              className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div>
-              <div className="mb-1">
-                City <span className="text-red-500">*</span>
-              </div>
-              <input
-                name="city"
-                type="text"
-                value={formData.city}
-                onChange={handleChange}
-                placeholder="Enter city"
-                className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
-              />
-            </div>
-
-            <div>
-              <div className="mb-1">
-                State/Province/state <span className="text-red-500">*</span>
-              </div>
-              <input
-                name="state"
-                type="text"
-                value={formData.state}
-                onChange={handleChange}
-                placeholder="State, Province, or Region"
-                className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className="mb-1">
-              Country <span className="text-red-500">*</span>
-            </div>
-            <select
-              name="country"
-              value={formData.country}
-              onChange={handleChange}
-              className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black"
-            >
-              <option>Select Country</option>
-              <option>USA</option>
-              <option>Canada</option>
-              <option>UK</option>
-            </select>
-          </div>
-        </div>
+        <PersonalInformation formData={formData} handleChange={handleChange} />
+        <AddressInformation formData={formData} handleChange={handleChange} />
         <div className="mt-6">
           <button
             type="submit"
