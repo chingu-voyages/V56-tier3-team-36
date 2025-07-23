@@ -1,10 +1,10 @@
-# Surgery Status Board
+# SurgiTrack
 
 A modern, family-friendly web app for tracking surgical progress and patient status in real time.
 
 ## 📝 Requirements
 
-Surgery Status Board requires [**Node.JS**](https://nodejs.org/) version `20.19.0` or higher, or version `22.12.0` or higher to run this project. Use of Node 21 or earlier versions of Node is not supported and will cause engine warnings or errors.
+The SurgiTrack Surgery Status Board requires [**Node.JS**](https://nodejs.org/) version `20.19.0` or higher, or version `22.12.0` or higher to run this project. Use of Node 21 or earlier versions of Node is not supported and will cause engine warnings or errors.
 
 We further recommend [**Node Package Manager (NPM)**](https://www.npmjs.com/package/npm/) version `9.0.0` or higher to match Node and avoid engine warnings.
 
@@ -43,7 +43,7 @@ npm run build
 
 ## 💻 Tech Stack/Key Dependencies
 
-Surgery Status Board is currently built using the following technologies:
+The SurgiTrack Surgery Status Board is currently built using the following technologies:
 
 - **[React](https://www.npmjs.com/package/react):** `^19.1.0`
 - **[React DOM](https://www.npmjs.com/package/react-dom):** `^19.1.0`
