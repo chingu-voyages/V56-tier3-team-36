@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer"
+import Header from "../components/Header";
 import SimpleTable from "../components/SimpleTable"
 import { createRow } from "../components/CreateRow";
 
@@ -66,9 +67,10 @@ export default function PatientStatus(){
 
   return(
     <div className="min-h-screen flex flex-col">
-      <div className="flex-grow flex flex-col items-center">
+      <Header />
+      <div className="flex-grow flex flex-col items-center pt-40">
         <h1 className="text-2xl font-bold mb-6">Patient Status</h1>
-        <div className="w-full max-w-2xl overflow-auto">
+        <div className="w-full max-w-2xl px-4 overflow-auto">
             <SimpleTable columns={columns} rows={rows} />
         </div>
       </div>
