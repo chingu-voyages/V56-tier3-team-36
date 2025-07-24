@@ -1,45 +1,61 @@
-'use client'
-import React from 'react'
-import { useState } from 'react'
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import { UserIcon } from '@heroicons/react/24/outline'
+"use client";
+import React from "react";
+import { useState } from "react";
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
+import { UserIcon } from "@heroicons/react/24/outline";
 // import Btn from './Btn'
-import { users } from '../assets/data/users'
 
 
-export function LogInModal({ onClose }) {
-  const [open, setOpen] = useState(true)
+export function LogInModal({onClose,handleLogin}) {
+
+const [open, setOpen] = useState(true);
+
+  // const logIn = useCallback(() => {
+  //   console.log("Login button clicked from App.jsx!");
+  //   setShowModal(true);
+  // }, []);
+
+
 
   const handleClose = () => {
-    setOpen(false)
-    onClose() // Call the onClose prop from Header
-  }
+    setOpen(false);
+    onClose(); // Call the onClose prop from Header
+  };
 
-const userName = users.map((user)=> user.username)
-const password = users.map((user)=> user.password)
+  // const userName = users.map((user) => user.username);
+  // const password = users.map((user) => user.password);
 
-const handleLogin =(e) => {
-    e.preventDefault();
-    const usernameInput = e.target.username.value;
-    const passwordInput = e.target.password.value;
+// const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  
-    
+  // const handleLogin = (e) => {
+  //   e.preventDefault();
+  //   const usernameInput = e.target.username.value;
+  //   const passwordInput = e.target.password.value;
 
-    if (usernameInput === "admin" && passwordInput === "admin123") {
-        console.log("Admin logged in");
-        // Redirect to admin dashboard or perform admin actions
-    }
-
-    else if (usernameInput === "surgeon" && passwordInput === "surgeon123") {
-        console.log("Surgical team logged in");
-        // Redirect to surgical team dashboard or perform surgical team actions
-    }
-    else {
-          console.log("Invalid username or password");
-        // Show an error message or handle invalid login
-    }
-}
+  //   if (usernameInput === "admin" && passwordInput === "admin123") {
+  //     console.log("Admin logged in");
+  //     setIsAuthenticated(true);
+  //     console.log("User authenticated")
+  //     handleClose(); // Close the modal after successful login
+  //     // Redirect to admin dashboard or perform admin actions
+  //   } else if (usernameInput === "surgeon" && passwordInput === "surgeon123") {
+  //     console.log("Surgical team logged in");
+  //     setIsAuthenticated(true);
+  //     console.log("User authenticated")
+  //     handleClose(); // Close the modal after successful login
+  //     // Redirect to surgical team dashboard or perform surgical team actions
+  //   } else {
+  //     console.log("Invalid username or password");
+  //     setIsAuthenticated(false);
+  //     console.log("User not authenticated");  
+  //     // Show an error message or handle invalid login
+  //   }
+  // };
 
   return (
     <Dialog open={open} onClose={handleClose} className="relative z-10">
@@ -54,13 +70,22 @@ const handleLogin =(e) => {
             transition
             className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95"
           >
+                  <form onSubmit={handleLogin}>
+
+                        
             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
               <div className="sm:flex sm:items-start">
                 <div className="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:size-10">
-                  <UserIcon aria-hidden="true" className="size-6 text-blue-600" />
+                  <UserIcon
+                    aria-hidden="true"
+                    className="size-6 text-blue-600"
+                  />
                 </div>
                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                  <DialogTitle as="h3" className="text-base font-semibold text-gray-900">
+                  <DialogTitle
+                    as="h3"
+                    className="text-base font-semibold text-gray-900"
+                  >
                     Login to SurgiTrack
                   </DialogTitle>
                   <div className="mt-4 space-y-4">
@@ -68,8 +93,9 @@ const handleLogin =(e) => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Username
                       </label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
+                        required
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter username"
                         name="username"
@@ -79,46 +105,55 @@ const handleLogin =(e) => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Password
                       </label>
-                      <input 
+                      <input
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700"
                         placeholder="Enter password"
                         name="password"
+                        required
+                        type="password"
                       />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-<form onSubmit={handleLogin}>
-            <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-              
-              
-              <button
-         
-                type="button"
-                className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-blue-700 sm:ml-3 sm:w-auto"
-              >
-                Login
-              </button>
 
-              <button
-                type="button"
-                onClick={handleClose}
-                className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"
-              >
-                Cancel
-              </button>
+
+              <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <button
+                  type="submit"
+                  className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-blue-700 sm:ml-3 sm:w-auto"
+         
+>
+                  Login
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                >
+                  Cancel
+                </button>
+              </div>
+           
+
+
+            <div className="px-4 py-3 text-sm">
+              <p className="font-bold">Demo Accounts:</p>
+              <p>
+                <span className="font-bold">Admin:</span> admin / admin123
+              </p>
+              <p>
+                <span className="font-bold">Surgical Team:</span> surgeon /
+                surgeon123
+              </p>
             </div>
             </form>
-            <div className="px-4 py-3 text-sm">
-                <p className="font-bold">Demo Accounts:</p>
-                <p><span className="font-bold">Admin:</span> admin / admin123</p>
-                <p><span className="font-bold">Surgical Team:</span> surgeon / surgeon123</p>
-                </div>
           </DialogPanel>
         </div>
-   
       </div>
+ 
     </Dialog>
-  )
+  );
 }

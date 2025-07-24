@@ -1,43 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { BsHospital } from "react-icons/bs";
 import Btn from "./Btn";
-import { LogInModal } from "./LogInModal";
+// import { LogInModal } from "./LogInModal";
+import TimeDisplay from "./TimeDisplay";
+
+function Header({logIn}) {
+    console.log("Header rendered with logIn function:", typeof logIn); // Debug log
+
+  // const [now, setNow] = React.useState(new Date());
+  // const [initialRenderTime] = useState(new Date()); // No 'setInitialRenderTime' needed if it never changes
+  // const [showModal, setShowModal] = useState(false); // Add modal state
 
 
-export default function Header() {
-  const [now, setNow] = React.useState(new Date());
-  const [initialRenderTime] = useState(new Date()); // No 'setInitialRenderTime' needed if it never changes
-  const [showModal, setShowModal] = useState(false); // Add modal state
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setNow(new Date());
+  //   }, 1000); // Update every second
+  //   return () => clearInterval(intervalId); //
+  //   // Cleanup the interval on component unmount
+  // }, []);
 
+  // // Options for the full date format (e.g., "Sunday, July 13, 2025")
+  // const fullDateOptions = {
+  //   weekday: "long", // "Sunday"
+  //   year: "numeric", // "2025"
+  //   month: "long", // "July"
+  //   day: "numeric", // "13"
+  // };
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setNow(new Date());
-    }, 1000); // Update every second
-    return () => clearInterval(intervalId); //
-    // Cleanup the interval on component unmount
-  }, []);
+  // // Options for the short time format (e.g., "1:05 PM")
+  // const shortTimeOptions = {
+  //   hour: "numeric", // "1"
+  //   minute: "2-digit", // "05"
+  //   hour12: true, // "PM"
+  // };
 
-  // Options for the full date format (e.g., "Sunday, July 13, 2025")
-  const fullDateOptions = {
-    weekday: "long", // "Sunday"
-    year: "numeric", // "2025"
-    month: "long", // "July"
-    day: "numeric", // "13"
-  };
-
-  // Options for the short time format (e.g., "1:05 PM")
-  const shortTimeOptions = {
-    hour: "numeric", // "1"
-    minute: "2-digit", // "05"
-    hour12: true, // "PM"
-  };
-
-  const logIn = () => {
-setShowModal(true); // Show the modal
-    console.log("Login button clicked");
-    
-  };
+//   const logIn = () => {
+// setShowModal(true); // Show the modal
+//     console.log("Login button clicked");
+//   };
 
   return (
     <div className="w-full">
@@ -50,21 +51,34 @@ setShowModal(true); // Show the modal
           </div>
         </div>
         <div className="m-4 flex flex-col justify-items-center items-end">
-          <h3 className="md:text-3xl text-lg font-bold">{now.toLocaleTimeString()}</h3>
-          <h3 className="md:text-sm text-xs font-medium">
-            {now.toLocaleDateString(undefined, fullDateOptions)}
-          </h3>
-          <h3 className="text-blue-600 font-bold text-sm mb-2">
-            Last Updated:{" "}
-            {initialRenderTime.toLocaleTimeString(undefined, shortTimeOptions)}
-          </h3>
-          <Btn text="Login"
-          onClick={logIn}
-        
-          />
+ 
+          <TimeDisplay />
+
+          <Btn
+          text="Login"
+  onClick={logIn}/>
+
+      <button 
+            onClick={() => {
+              console.log("=== DIRECT BUTTON TEST ===");
+              console.log("logIn type:", typeof logIn);
+              console.log("logIn value:", logIn);
+              if (logIn) {
+                console.log("Direct button calling logIn...");
+                logIn();
+              } else {
+                console.log("logIn is undefined in direct button!");
+              }
+            }}
+            style={{background: 'green', color: 'white', padding: '10px', marginTop: '5px'}}
+          >
+            TEST DIRECT
+          </button>
         </div>
       </header>
-      {showModal && <LogInModal onClose={() => setShowModal(false)} /> }
     </div>
   );
 }
+export default memo(Header, (prevProps, nextProps) => {
+return true;
+});

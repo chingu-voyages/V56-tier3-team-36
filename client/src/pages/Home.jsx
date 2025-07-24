@@ -3,6 +3,7 @@ import PromoCard from '../components/PromoCard';
 import Button from '../components/Button';
 import { IoTimer, IoPeople } from 'react-icons/io5';
 import { MdPrivacyTip } from 'react-icons/md';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 
@@ -15,8 +16,10 @@ function Home() {
 
   return (
     <>
-      <div className='w-full h-12 bg-gray-300 text-white flex items-center justify-center'>Upper Holder</div>
+      {/* <div className='w-full h-12 bg-gray-300 text-white flex items-center justify-center'>Upper Holder</div>
       <div className='w-full h-21 bg-gray-800 text-white flex items-center justify-center'>Header Holder</div>
+       */}
+       <Header />
       <main className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
         <div id="home">
           <div className="text-center mb-12">
