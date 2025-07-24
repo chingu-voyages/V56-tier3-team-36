@@ -8,54 +8,15 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { UserIcon } from "@heroicons/react/24/outline";
-// import Btn from './Btn'
-
 
 export function LogInModal({onClose,handleLogin}) {
 
 const [open, setOpen] = useState(true);
 
-  // const logIn = useCallback(() => {
-  //   console.log("Login button clicked from App.jsx!");
-  //   setShowModal(true);
-  // }, []);
-
-
-
   const handleClose = () => {
     setOpen(false);
     onClose(); // Call the onClose prop from Header
   };
-
-  // const userName = users.map((user) => user.username);
-  // const password = users.map((user) => user.password);
-
-// const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // const handleLogin = (e) => {
-  //   e.preventDefault();
-  //   const usernameInput = e.target.username.value;
-  //   const passwordInput = e.target.password.value;
-
-  //   if (usernameInput === "admin" && passwordInput === "admin123") {
-  //     console.log("Admin logged in");
-  //     setIsAuthenticated(true);
-  //     console.log("User authenticated")
-  //     handleClose(); // Close the modal after successful login
-  //     // Redirect to admin dashboard or perform admin actions
-  //   } else if (usernameInput === "surgeon" && passwordInput === "surgeon123") {
-  //     console.log("Surgical team logged in");
-  //     setIsAuthenticated(true);
-  //     console.log("User authenticated")
-  //     handleClose(); // Close the modal after successful login
-  //     // Redirect to surgical team dashboard or perform surgical team actions
-  //   } else {
-  //     console.log("Invalid username or password");
-  //     setIsAuthenticated(false);
-  //     console.log("User not authenticated");  
-  //     // Show an error message or handle invalid login
-  //   }
-  // };
 
   return (
     <Dialog open={open} onClose={handleClose} className="relative z-10">
