@@ -8,4 +8,6 @@
   box-sizing: border-box;
 }
 
-
+.bg-gradient-to-br {
+  background-image:linear-gradient(to bottom right, #eff6ff, #e0e7ff);
+}
