@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -34,26 +34,18 @@ function AppContent() {
   const [userRole, setUserRole] = useState(null); //admin or surgical team
   const [showModal, setShowModal] = useState(false);
 
-  // const userName = users.map((user) => user.username);
-  // const password = users.map((user) => user.password);
-
-  const logIn = useMemo(() => {
-    console.log("Creating logIn function with useMemo"); // Debug log
-    return () => {
+  const logIn = () => {
       console.log("Login button clicked from App.jsx!");
       setShowModal(true);
       console.log("showModal set to true");
-    };
-  }, []); // Empty deps - function never changes
+  }
 
-  const handleClose = useMemo(() => {
-    return () => {
+  const handleClose = () => {
       setShowModal(false);
-    };
-  }, []);
+  };
 
-  const handleLogin = useMemo(() => {
-    return (e) => {
+  const handleLogin = (e) => {
+  
       e.preventDefault();
       const usernameInput = e.target.username.value;
       const passwordInput = e.target.password.value;
@@ -78,7 +70,7 @@ function AppContent() {
         setIsAuthenticated(false);
       }
     };
-  }, [navigate]);
+
 
   console.log("App rendering with logIn function:", typeof logIn);
   console.log("logIn function value:", logIn); // Debug log

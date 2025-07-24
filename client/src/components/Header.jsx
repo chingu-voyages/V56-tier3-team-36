@@ -14,9 +14,12 @@ function Header({ logIn }) {
         <div className="flex items-center">
           <BsHospital className="md:text-6xl text-3xl m-4 text-blue-600" />
           <div className="flex flex-col justify-items-start items-start">
- <Link to="/home" className="text-left md:text-3xl text-lg hover:text-blue-300 transition-colors duration-200">
+            <Link
+              to="/home"
+              className="text-left md:text-3xl text-lg hover:text-blue-300 transition-colors duration-200"
+            >
               <h1>SurgiTrack</h1>
-            </Link>            
+            </Link>
             <h2 className="font-medium text-sm">
               Track your loved one's procedure
             </h2>
