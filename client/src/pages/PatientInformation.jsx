@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import AddPatient from "../components/AddPatient";
 import UpdatePatient from "../components/UpdatePatient";
+import Footer from "../components/Footer"
+import Header from "../components/Header";
 
 export default function PatientInformation() {
   const [patientID, setPatientID] = useState("");
@@ -8,7 +10,8 @@ export default function PatientInformation() {
 
   return (
     <div className="bg-[#F7FAFC]">
-      <div className="bg-[#FFFFFF] p-4">
+      <Header/>
+      <div className="bg-[#FFFFFF] p-4 mt-40">
         <div className="font-bold mt-2 text-black">
           Patient Information Management
         </div>
@@ -33,6 +36,7 @@ export default function PatientInformation() {
         </div>
       </div>
       {mode === "add" ? <AddPatient /> : <UpdatePatient></UpdatePatient>}
+      <Footer/>
     </div>
   );
 }
