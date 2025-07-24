@@ -13,6 +13,8 @@ function App() {
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<Home />} />
         <Route path="/patientinformation" element={<PatientInformation />} />
+        <Route path="/patientstatusupdate" element={<PatientStatusUpdate />} />
+        <Route path="/patientstatus" element={<PatientStatus />} />
       </Routes>
     </Router>
   )
