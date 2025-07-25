@@ -18,7 +18,7 @@ export default function StatusFlowGuide() {
                 </div>
 
                 <div className="flex flex-row justify-center items-center gap-2">
-                <li className="status-flow-guide-button">3. In Process</li>
+                <li className="status-flow-guide-button">3. In-Progress</li>
                 <BiSolidRightArrow className="text-1xl text-blue-600" />
                 </div>
 
@@ -42,7 +42,7 @@ export default function StatusFlowGuide() {
             </ol>
             </div>
 
-            <p className="text-gray-600"><span className="font-bold">Rules:</span> Statuses cannot be skipped. Can only move forwrad or back one step. No minimum time between updates </p>
+            <p className="text-gray-600"><span className="font-bold">Rules:</span> Statuses cannot be skipped. Can only move forward or back one step. No minimum time between updates </p>
             </div>
     );
 }

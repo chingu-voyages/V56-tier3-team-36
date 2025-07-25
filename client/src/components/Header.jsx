@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BsHospital } from "react-icons/bs";
 import Btn from "./Btn";
 import { LogInModal } from "./LogInModal";
+import { Link } from 'react-router-dom';
 
 
 export default function Header() {
@@ -58,10 +59,15 @@ setShowModal(true); // Show the modal
             Last Updated:{" "}
             {initialRenderTime.toLocaleTimeString(undefined, shortTimeOptions)}
           </h3>
-          <Btn text="Login"
-          onClick={logIn}
-        
-          />
+          <div className="flex items-center gap-6 mt-2">
+            <Link to='/home' className="text-sm text-blue-600 hover:underline">Home</Link>
+            <Link to='/patientinformation' className="text-sm text-blue-600 hover:underline">Patient Information</Link>
+            <Link to='/patientstatusupdate' className="text-sm text-blue-600 hover:underline">Patient Status Update</Link>
+            <Link to='/patientstatus' className="text-sm text-blue-600 hover:underline">Status Board</Link>
+            <Btn text="Login"
+                 onClick={logIn}
+            />
+          </div>
         </div>
       </header>
       {showModal && <LogInModal onClose={() => setShowModal(false)} /> }
