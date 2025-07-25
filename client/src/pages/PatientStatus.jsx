@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Footer from "../components/Footer"
-import Header from "../components/Header";
 import SimpleTable from "../components/SimpleTable"
 import { createRow } from "../components/CreateRow";
+import StatusFlowGuide from "../components/StatusFlowGuide";
 
 export default function PatientStatus(){
      // Table columns configuration.
@@ -66,15 +65,14 @@ export default function PatientStatus(){
   );
 
   return(
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <div className="flex-grow flex flex-col items-center pt-40">
-        <h1 className="text-2xl font-bold mb-6">Patient Status</h1>
-        <div className="w-full max-w-2xl px-4 overflow-auto">
+    <div className="bg-blue-background pt-50">
+        <h1 className='text-4xl font-bold'>Status Board</h1>
+        <StatusFlowGuide />
+        <div className="bg-white p-4 m-8 rounded-2xl shadow-lg flex flex-col items-center">
+          <div className="w-full max-w-4xl overflow-auto">
             <SimpleTable columns={columns} rows={rows} />
+          </div>
         </div>
-      </div>
-      <Footer />
     </div>
   )
 }
