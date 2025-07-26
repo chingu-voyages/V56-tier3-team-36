@@ -75,6 +75,7 @@ function AppContent() {
   console.log("App rendering with logIn function:", typeof logIn);
   console.log("logIn function value:", logIn); // Debug log
 
+
   return (
 <>
       <Header logIn={logIn}  />

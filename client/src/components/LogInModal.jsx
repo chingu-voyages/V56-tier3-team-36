@@ -18,6 +18,7 @@ const [open, setOpen] = useState(true);
     onClose(); // Call the onClose prop from Header
   };
 
+
   return (
     <Dialog open={open} onClose={handleClose} className="relative z-10">
       <DialogBackdrop
@@ -47,6 +48,7 @@ const [open, setOpen] = useState(true);
                     as="h3"
                     className="text-base font-semibold text-gray-900"
                   >
+
                     Login to SurgiTrack
                   </DialogTitle>
                   <div className="mt-4 space-y-4">
@@ -57,6 +59,7 @@ const [open, setOpen] = useState(true);
                       <input
                         type="text"
                         required
+
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter username"
                         name="username"
@@ -72,6 +75,7 @@ const [open, setOpen] = useState(true);
                         name="password"
                         required
                         type="password"
+
                       />
                     </div>
                   </div>
@@ -118,3 +122,4 @@ const [open, setOpen] = useState(true);
     </Dialog>
   );
 }
+
