@@ -8,12 +8,6 @@ import TimeDisplay from "./TimeDisplay";
 function Header({ logIn }) {
   console.log("Header rendered with logIn function:", typeof logIn); // Debug log
 
-  const logIn = () => {
-setShowModal(true); // Show the modal
-    console.log("Login button clicked");
-    
-  };
-
   return (
     <div className="w-full">
       <header className="text-white bg-gray-800 font-bold flex items-center justify-between top-0 left-0 fixed w-full">
@@ -32,15 +26,13 @@ setShowModal(true); // Show the modal
           </div>
         </div>
         <div className="m-4 flex flex-col justify-items-center items-end">
-
           <TimeDisplay />
 
           <Btn text="Login" onClick={logIn} />
-
         </div>
       </header>
-      {showModal && <LogInModal onClose={() => setShowModal(false)} /> }
     </div>
   );
 }
 export default Header;
+
