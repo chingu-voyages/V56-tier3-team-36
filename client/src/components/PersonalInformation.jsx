@@ -2,7 +2,7 @@ import { BsPersonVcard } from "react-icons/bs";
 
 export default function PersonalInformation({ formData, handleChange }){
   return(
-    <div className="bg-[#FFFFFF] p-4 mt-10 text-black">
+    <div className="bg-[#FFFFFF] p-8 mt-10 text-black max-w-4xl mx-auto rounded-3xl shadow-md">
       <div className="flex items-start mb-4">
         <div className="bg-green-100 p-2 rounded-full">
           <BsPersonVcard className="text-green-700 text-3xl" />

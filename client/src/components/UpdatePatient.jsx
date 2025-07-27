@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import PersonalInformation from "./PersonalInformation";
 import AddressInformation from "./AddressInformation";
 import SixDigitGeneration from "./SixDigitGeneration";
+import SearchPatient from "./SearchPatient";
+import { FaBuildingCircleCheck } from "react-icons/fa6";
 
 export default function UpdatePatient() {
   const [patientID, setPatientID] = useState("");
@@ -36,23 +38,42 @@ export default function UpdatePatient() {
       phone: "",
       street: "",
       city: "",
-      region: "",
+      state: "",
       country: "",
     });
   };
 
   return (
     <div>
+      <SearchPatient/>
       <SixDigitGeneration patientID={patientID} setPatientID={setPatientID}/>
       <form onSubmit={handleSubmit}>
         <PersonalInformation formData={formData} handleChange={handleChange} />
         <AddressInformation formData={formData} handleChange={handleChange} />
-        <div className="mt-6">
-          <button
-            type="submit"
-            className="!bg-green-600 text-black px-6 py-2 rounded"
+        <div className="mt-10 flex flex-col">
+          <div className="flex flex-row bg-blue-600 text-white font-bold text-l self-center px-8 py-3 rounded-lg mb-4">
+            <FaBuildingCircleCheck className="text-3xl mr-2"/>
+            <button
+              type="submit"
+            >
+              Update patient information
+            </button>
+          </div>
+          <button 
+            type="button"
+            className="bg-gray-200 font-medium text-gray-600 self-center px-6 py-3 rounded-lg mb-10"
+            onClick={() => setFormData({
+              firstName: "",
+              lastName: "",
+              email: "",
+              phone: "",
+              street: "",
+              city: "",
+              state: "",
+              country: "",
+            })}
           >
-            Update Patient
+            Clear form
           </button>
         </div>
       </form>

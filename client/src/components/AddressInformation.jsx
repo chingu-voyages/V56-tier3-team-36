@@ -2,7 +2,7 @@ import { IoLocationSharp } from "react-icons/io5";
 
 export default function AddressInformation({ formData, handleChange }){
   return(
-    <div className="bg-[#FFFFFF] p-4 mt-10 text-black">
+    <div className="bg-[#FFFFFF] p-8 mt-10 text-black max-w-4xl mx-auto rounded-3xl shadow-md">
       <div className="flex items-start mb-4">
         <div className="bg-purple-100 p-1 rounded-full">
           <IoLocationSharp className="text-purple-700 text-4xl" />
