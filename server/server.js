@@ -32,7 +32,7 @@ pool.on('connect', () => {
 
 // get all patients
 
-app.post("/patients", async(req, res) => {
+app.get("/patients", async(req, res) => {
 
   try {
     const result = await pool.query("SELECT * FROM patients");
