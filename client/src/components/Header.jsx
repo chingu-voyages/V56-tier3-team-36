@@ -6,7 +6,7 @@ import { LogInModal } from "./LogInModal";
 import TimeDisplay from "./TimeDisplay";
 // import Link from "react-router-dom/Link";
 
-function Header({ logIn }) {
+function Header({ logIn, isAdmin, isSurgeon }) {
   console.log("Header rendered with logIn function:", typeof logIn); // Debug log
 
   return (
@@ -30,8 +30,16 @@ function Header({ logIn }) {
           <TimeDisplay />
           <div className="flex items-center gap-6 mt-2">
             <Link to='/home' className="text-sm text-blue-600 hover:underline">Home</Link>
-            <Link to='/patientinformation' className="text-sm text-blue-600 hover:underline">Patient Information</Link>
-            <Link to='/patientstatusupdate' className="text-sm text-blue-600 hover:underline">Patient Status Update</Link>
+            {isAdmin && (
+                      <Link to="/patientinformation" className="text-sm text-blue-600 hover:underline">
+                        Patient Information
+                      </Link>
+                    )}
+            {(isAdmin || isSurgeon) && (
+                      <Link to="/patientstatusupdate" className="text-sm text-blue-600 hover:underline">
+                        Patient Status Update
+                      </Link>
+                    )}
             <Link to='/patientstatus' className="text-sm text-blue-600 hover:underline">Status Board</Link>
             <Btn text="Login"
                  onClick={logIn}
