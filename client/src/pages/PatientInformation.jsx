@@ -1,22 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AddPatient from "../components/AddPatient";
 import UpdatePatient from "../components/UpdatePatient";
 
 export default function PatientInformation() {
-  const [patientID, setPatientID] = useState("");
+  //const [patientID, setPatientID] = useState("");
   const [mode, setMode] = useState("add");
 
   return (
-    <div className="bg-[#F7FAFC]">
-      <div className="bg-[#FFFFFF] p-4">
-        <div className="font-bold mt-2 text-black">
+    <div className="bg-blue-background pt-50 pb-5">
+        <h1 className="text-4xl font-bold">
           Patient Information Management
-        </div>
-        <div className="text-black">
+        </h1>
+        <p className='text-xl text-gray-600 p-6 '>
           Add new patients or update existing patient information. All required
           fields must be completed.
-        </div>
-        <div className="mt-2">
+        </p>
+        <div className="mt-6">
           <button
             className="!bg-blue-600 text-black px-4 py-2 mr-4"
             onClick={() => setMode("add")}
@@ -31,8 +30,9 @@ export default function PatientInformation() {
             Update existing patient
           </button>
         </div>
-      </div>
       {mode === "add" ? <AddPatient /> : <UpdatePatient></UpdatePatient>}
+      
     </div>
+    
   );
 }
