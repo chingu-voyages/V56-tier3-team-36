@@ -42,6 +42,7 @@ export default function PatientInformation() {
             Update existing patient
           </button>
         </div>
+      </div>
       {mode === "add" ? <AddPatient /> : <UpdatePatient></UpdatePatient>}
       <Footer/>
     </div>
