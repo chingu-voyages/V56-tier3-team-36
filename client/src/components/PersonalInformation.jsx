@@ -20,6 +20,7 @@ export default function PersonalInformation({ formData, handleChange }){
             value={formData.firstName}
             onChange={handleChange}
             placeholder="Enter first name"
+            required
             className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
           />
         </div>
@@ -34,6 +35,7 @@ export default function PersonalInformation({ formData, handleChange }){
             value={formData.lastName}
             onChange={handleChange}
             placeholder="Enter last name"
+            required
             className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
           />
         </div>
@@ -44,10 +46,11 @@ export default function PersonalInformation({ formData, handleChange }){
           </div>
           <input
             name="phone"
-            type="text"
+            type="number"
             value={formData.phone}
             onChange={handleChange}
             placeholder="(577) 123-4567"
+            required
             className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
           />
         </div>
@@ -62,6 +65,7 @@ export default function PersonalInformation({ formData, handleChange }){
             value={formData.email}
             onChange={handleChange}
             placeholder="contact@example.com"
+            required
             className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
           />
           <div className="text-sm text-gray-300 mt-1">
