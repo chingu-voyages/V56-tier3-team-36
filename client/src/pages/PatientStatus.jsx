@@ -2,39 +2,55 @@ import React, { useEffect, useState } from "react";
 import SimpleTable from "../components/SimpleTable"
 import { createRow } from "../components/CreateRow";
 import StatusFlowGuide from "../components/StatusFlowGuide";
+import { getAllPatients } from "./apiServicePatient";
 
 export default function PatientStatus(){
      // Table columns configuration.
   const columns = [
-    { id: 'patientNo', label: 'Patient No.', minWidth: 100 },
-    { id: 'currentStatus', label: 'Current Status', minWidth: 100 }
+    { id: 'patient_number', label: 'Patient No.', minWidth: 100 },
+    { id: 'current_status', label: 'Current Status', minWidth: 100 }
   ];  
   
+  const [patients, setPatients] = useState([]);
+
+  useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        const data = await getAllPatients();
+        console.log("Fetched patients:", data);
+        data.sort((a, b) => (a.patient_id > b.patient_id ? 1 : -1));
+        setPatients(data);
+      } catch (err) {
+        console.error("Fetch error:", err);
+      }
+    };
+    fetchPatients();
+  }, []);
+
+  
   // This will be replaced with a GET ALL request
-  const patients = [
-    { patientNo: 'PT0001', currentStatus: 'Checked In' },        
-    { patientNo: 'PT0002', currentStatus: 'Pre-Procedure' },     
-    { patientNo: 'PT0003', currentStatus: 'In-progress' },     
-    { patientNo: 'PT0004', currentStatus: 'Closing' },          
-    { patientNo: 'PT0005', currentStatus: 'Recovery' },      
-    { patientNo: 'PT0006', currentStatus: 'Complete' }, 
-    { patientNo: 'PT0007', currentStatus: 'Dismissal' },   
-    { patientNo: 'PT0008', currentStatus: 'Checked In' },        
-    { patientNo: 'PT0009', currentStatus: 'Pre-Procedure' },     
-    { patientNo: 'PT0010', currentStatus: 'In-progress' },     
-    { patientNo: 'PT0011', currentStatus: 'Closing' },          
-    // { patientNo: 'PT0016', currentStatus: 'Pre-Procedure' },     
-    // { patientNo: 'PT0017', currentStatus: 'In-progress' },     
-    // { patientNo: 'PT0018', currentStatus: 'Closing' },          
-    // { patientNo: 'PT0019', currentStatus: 'Recovery' },      
-    // { patientNo: 'PT0020', currentStatus: 'Complete' }, 
-    // { patientNo: 'PT0021', currentStatus: 'Dismissal' },
-    { patientNo: 'PTTE22', currentStatus: 'Closing' }    
-  ];
+  // const patients = [
+  //   { patientNo: 'PT0001', currentStatus: 'Checked In' },        
+  //   { patientNo: 'PT0002', currentStatus: 'Pre-Procedure' },     
+  //   { patientNo: 'PT0003', currentStatus: 'In-progress' },     
+  //   { patientNo: 'PT0004', currentStatus: 'Closing' },          
+  //   { patientNo: 'PT0005', currentStatus: 'Recovery' },      
+  //   { patientNo: 'PT0006', currentStatus: 'Complete' }, 
+  //   { patientNo: 'PT0007', currentStatus: 'Dismissal' },   
+  //   { patientNo: 'PT0008', currentStatus: 'Checked In' },        
+  //   { patientNo: 'PT0009', currentStatus: 'Pre-Procedure' },     
+  //   { patientNo: 'PT0010', currentStatus: 'In-progress' },     
+  //   { patientNo: 'PT0011', currentStatus: 'Closing' },            
+  //   { patientNo: 'PT0018', currentStatus: 'Closing' },          
+  //   { patientNo: 'PT0019', currentStatus: 'Recovery' },      
+  //   { patientNo: 'PT0020', currentStatus: 'Complete' }, 
+  //   { patientNo: 'PT0021', currentStatus: 'Dismissal' },
+  //   { patientNo: 'PTTE22', currentStatus: 'Closing' }    
+  // ];
 
   const filteredPatients = patients
   .filter((p) => {
-    const status = p.currentStatus?.trim(); // Removes empty/null statuses
+    const status = p.current_status?.trim(); // Removes empty/null statuses
     return status && status !== "Dismissal"; //Removes Patients with Dismissal Status
   })
 
@@ -58,8 +74,8 @@ export default function PatientStatus(){
     createRow(
       columns,
       [
-        patient.patientNo,
-        patient.currentStatus
+        patient.patient_number,
+        patient.current_status 
       ]
     )
   );
@@ -73,6 +89,7 @@ export default function PatientStatus(){
             <SimpleTable columns={columns} rows={rows} />
           </div>
         </div>
+        
     </div>
   )
 }
