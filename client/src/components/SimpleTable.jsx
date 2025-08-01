@@ -7,7 +7,7 @@ export default function SimpleTable({ columns, rows }) {
         return 'bg-blue-100'; 
       case 'Pre-Procedure':
         return 'bg-yellow-100'; 
-      case 'In-progress':
+      case 'In-Progress':
         return 'bg-red-200'; 
       case 'Closing':
         return 'bg-purple-200'; 

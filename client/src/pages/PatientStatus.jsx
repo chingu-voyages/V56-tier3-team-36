@@ -13,8 +13,8 @@ export default function PatientStatus(){
   
   const [patients, setPatients] = useState([]);
 
-  useEffect(() => {
-    const fetchPatients = async () => {
+  // Option for refreshing the GET every 5 seconds
+  const fetchPatients = async () => {
       try {
         const data = await getAllPatients();
         console.log("Fetched patients:", data);
@@ -24,29 +24,27 @@ export default function PatientStatus(){
         console.error("Fetch error:", err);
       }
     };
-    fetchPatients();
+
+    useEffect(() => {
+    fetchPatients(); // Initial fetch
+    const interval = setInterval(fetchPatients, 5000); // Poll every 5s
+
+    return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
-  
-  // This will be replaced with a GET ALL request
-  // const patients = [
-  //   { patientNo: 'PT0001', currentStatus: 'Checked In' },        
-  //   { patientNo: 'PT0002', currentStatus: 'Pre-Procedure' },     
-  //   { patientNo: 'PT0003', currentStatus: 'In-progress' },     
-  //   { patientNo: 'PT0004', currentStatus: 'Closing' },          
-  //   { patientNo: 'PT0005', currentStatus: 'Recovery' },      
-  //   { patientNo: 'PT0006', currentStatus: 'Complete' }, 
-  //   { patientNo: 'PT0007', currentStatus: 'Dismissal' },   
-  //   { patientNo: 'PT0008', currentStatus: 'Checked In' },        
-  //   { patientNo: 'PT0009', currentStatus: 'Pre-Procedure' },     
-  //   { patientNo: 'PT0010', currentStatus: 'In-progress' },     
-  //   { patientNo: 'PT0011', currentStatus: 'Closing' },            
-  //   { patientNo: 'PT0018', currentStatus: 'Closing' },          
-  //   { patientNo: 'PT0019', currentStatus: 'Recovery' },      
-  //   { patientNo: 'PT0020', currentStatus: 'Complete' }, 
-  //   { patientNo: 'PT0021', currentStatus: 'Dismissal' },
-  //   { patientNo: 'PTTE22', currentStatus: 'Closing' }    
-  // ];
+  // useEffect(() => {
+  //   const fetchPatients = async () => {
+  //     try {
+  //       const data = await getAllPatients();
+  //       console.log("Fetched patients:", data);
+  //       data.sort((a, b) => (a.patient_id > b.patient_id ? 1 : -1));
+  //       setPatients(data);
+  //     } catch (err) {
+  //       console.error("Fetch error:", err);
+  //     }
+  //   };
+  //   fetchPatients();
+  // }, []);
 
   const filteredPatients = patients
   .filter((p) => {
