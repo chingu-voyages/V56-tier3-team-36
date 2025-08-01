@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AddPatient from "../components/AddPatient";
 import UpdatePatient from "../components/UpdatePatient";
 import Footer from "../components/Footer"
 import Header from "../components/Header";
 
 export default function PatientInformation() {
-  const [patientID, setPatientID] = useState("");
+  //const [patientID, setPatientID] = useState("");
   const [mode, setMode] = useState("add");
 
   return (
@@ -42,9 +42,9 @@ export default function PatientInformation() {
             Update existing patient
           </button>
         </div>
-      </div>
       {mode === "add" ? <AddPatient /> : <UpdatePatient></UpdatePatient>}
       <Footer/>
     </div>
+    
   );
 }
