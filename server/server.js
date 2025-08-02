@@ -32,7 +32,7 @@ pool.on('connect', () => {
 
 // get all patients
 
-app.get("/patients", async(req, res) => {
+app.get("/get-all-patients", async(req, res) => {
 
   try {
     const result = await pool.query("SELECT * FROM patients");
@@ -45,10 +45,10 @@ app.get("/patients", async(req, res) => {
 });
 
 // get patient by patient number
-app.get("/patient-status/:num", async (req, res) => {
-  const patientNum = req.params.num;
+app.get("/get-patient/:patientNumber", async (req, res) => {
+  const patientNumber = req.params.patientNumber;
   try {
-    const result = await pool.query("SELECT * FROM patients WHERE patient_number = $1", [patientNum]);
+    const result = await pool.query("SELECT * FROM patients WHERE patient_number = $1", [patientNumber]);
     if (result.rows.length > 0) {
       res.json(result.rows[0]);
     } else {
@@ -61,7 +61,7 @@ app.get("/patient-status/:num", async (req, res) => {
 });
 
 // add a new patient
-app.post("/new-patient", async (req, res) => {
+app.post("/create-new-patient", async (req, res) => {
   const newPatient = req.body;
   try {
     const result = await pool.query(
@@ -89,14 +89,14 @@ app.post("/new-patient", async (req, res) => {
 
 
 // update patient information
-app.put("/patients/:id", async (req, res) => {
-  const patientId = req.params.id;
+app.put("/update-patient/:patientNumber", async (req, res) => {
+  const patientNumber = req.params.patientNumber;
   const updatedPatient = req.body;
-  console.log("Updating patient with ID:", patientId);
+  console.log("Updating patient with patientNumber:", patientNumber);
   console.log("Updated patient data:", updatedPatient);
   try {
     const result = await pool.query(
-      "UPDATE patients SET first_name = $1, last_name = $2, street_address = $3, city = $4, region = $5, country = $6, telephone = $7, contact_email = $8 WHERE patient_id = $9 RETURNING *", 
+      "UPDATE patients SET first_name = $1, last_name = $2, street_address = $3, city = $4, region = $5, country = $6, telephone = $7, contact_email = $8 WHERE patient_number = $9 RETURNING *", 
       [
         updatedPatient.first_name,
         updatedPatient.last_name,
@@ -106,7 +106,7 @@ app.put("/patients/:id", async (req, res) => {
         updatedPatient.country,
         updatedPatient.telephone,
         updatedPatient.contact_email,
-        patientId
+        patientNumber
       ]
     );
     if (result.rows.length > 0) {
@@ -120,18 +120,34 @@ app.put("/patients/:id", async (req, res) => {
   }
 });
 
+// delete patient by patient Number
+app.delete("/delete-patient/:patientNumber", async (req, res) => {
+  const patientNumber = req.params.patientNumber;
+  try {
+    const result = await pool.query("DELETE FROM patients WHERE patient_number = $1 RETURNING *", [patientNumber]);
+    if (result.rows.length > 0) {
+      res.json(result.rows[0]);
+    } else {
+      res.status(404).send("Patient not found");
+    }
+  } catch (error) {
+    console.error("Error deleting patient:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 
 
 // update patient status
-app.put("/update-status/:num", async (req, res) => {
-  const patientNum = req.params.num;
+app.put("/update-patient-status/:patientNumber", async (req, res) => {
+  const patientNumber = req.params.patientNumber;
   const currentStatus = req.body.current_status;
   try {
     const result = await pool.query(
       "UPDATE patients SET current_status = $1 WHERE patient_number = $2 RETURNING *",
       [
         currentStatus,
-        patientNum
+        patientNumber
       ]
     );
     if (result.rows.length > 0) {
@@ -141,24 +157,6 @@ app.put("/update-status/:num", async (req, res) => {
     }
   } catch (error) {
     console.error("Error updating patient status:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-
-
-// delete patient by patient ID
-app.delete("/delete-patient/:id", async (req, res) => {
-  const patientId = req.params.id;
-  try {
-    const result = await pool.query("DELETE FROM patients WHERE patient_id = $1 RETURNING *", [patientId]);
-    if (result.rows.length > 0) {
-      res.json(result.rows[0]);
-    } else {
-      res.status(404).send("Patient not found");
-    }
-  } catch (error) {
-    console.error("Error deleting patient:", error);
     res.status(500).send("Internal Server Error");
   }
 });
