@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { BsPersonFill,BsPersonVcard } from "react-icons/bs";
+import axios from "axios";
+import { BsPersonFill, BsPersonVcard } from "react-icons/bs";
 import { IoLocationSharp } from "react-icons/io5";
 import SixDigitGeneration from "./SixDigitGeneration";
 import PersonalInformation from "./PersonalInformation";
 import AddressInformation from "./AddressInformation";
 import { FaBuildingCircleCheck } from "react-icons/fa6";
-
 
 export default function AddPatient() {
   const [patientID, setPatientID] = useState("");
@@ -45,34 +45,43 @@ export default function AddPatient() {
     });
   };
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/patients")
+      .then((res) => {
+        console.log("Data received from backend:", res.data);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch data from backend:", err);
+      });
+  }, []);
+
   return (
     <div>
-      <SixDigitGeneration patientID={patientID} setPatientID={setPatientID}/>
+      <SixDigitGeneration patientID={patientID} setPatientID={setPatientID} />
       <form onSubmit={handleSubmit}>
         <PersonalInformation formData={formData} handleChange={handleChange} />
         <AddressInformation formData={formData} handleChange={handleChange} />
         <div className="mt-10 flex flex-col">
           <div className="flex flex-row bg-blue-600 text-white font-bold text-l self-center px-8 py-3 rounded-lg mb-4">
-            <FaBuildingCircleCheck className="text-3xl mr-2"/>
-            <button
-              type="submit"
-            >
-              Add Patient Information (Status: checked in)
-            </button>
+            <FaBuildingCircleCheck className="text-3xl mr-2" />
+            <button type="submit">Add Patient Information</button>
           </div>
-          <button 
+          <button
             type="button"
             className="bg-gray-200 font-medium text-gray-600 self-center px-6 py-3 rounded-lg mb-10"
-            onClick={() => setFormData({
-              firstName: "",
-              lastName: "",
-              email: "",
-              phone: "",
-              street: "",
-              city: "",
-              state: "",
-              country: "",
-            })}
+            onClick={() =>
+              setFormData({
+                firstName: "",
+                lastName: "",
+                email: "",
+                phone: "",
+                street: "",
+                city: "",
+                state: "",
+                country: "",
+              })
+            }
           >
             Clear form
           </button>

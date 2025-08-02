@@ -10,7 +10,6 @@ export default function PatientInformation() {
 
   return (
     <div className="bg-[#F7FAFC]">
-      <Header/>
       <div className="bg-[#FFFFFF] p-4 mt-40 mb-15 shadow-md">
         <div className="font-bold mt-2 text-black text-3xl">
           Patient Information Management
@@ -44,7 +43,6 @@ export default function PatientInformation() {
         </div>
       </div>
       {mode === "add" ? <AddPatient /> : <UpdatePatient></UpdatePatient>}
-      <Footer/>
     </div>
     
   );
