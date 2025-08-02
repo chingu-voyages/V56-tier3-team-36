@@ -18,7 +18,7 @@ export default function SixDigitGeneration({patientID, setPatientID}){
   }, []);
 
   return(
-    <div className="bg-[#FFFFFF] p-4 mt-10 text-black">
+    <div className="bg-[#FFFFFF] p-8 mt-10 text-black max-w-4xl mx-auto rounded-3xl shadow-md">
       <div className="flex items-start mb-4">
         <div className="bg-blue-100 p-1 rounded-full">
           <BsPersonFill className="text-blue-700 text-4xl" />
