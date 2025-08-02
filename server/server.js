@@ -99,7 +99,7 @@ app.put("/patients/:id", async (req, res) => {
   const updatedPatient = req.body;
   try {
     const result = await pool.query(
-      "UPDATE patients SET first_name = $1, last_name = $2, street_address = $3, city = $4, region = $5, country = $6, telephone = $7, contact_email = $8, current_status = $9 WHERE num = $10 RETURNING *",
+      "UPDATE patients SET first_name = $1, last_name = $2, street_address = $3, city = $4, region = $5, country = $6, telephone = $7, contact_email = $8, current_status = $9 WHERE patient_number = $10 RETURNING *",
       [
         updatedPatient.first_name,
         updatedPatient.last_name,
