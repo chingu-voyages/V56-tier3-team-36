@@ -21,12 +21,16 @@ const pool = new Pool({
   port: process.env.PGPORT || 5432,
   ssl: {
     rejectUnauthorized: process.env.PGSSLMODE
-  }
+  } 
 });
 
-pool.on('connect', () => {
-  console.log('Connected to the PostgreSQL database!');
-});
+pool.connect()
+  .then(() => {
+    console.log('Connected to PostgreSQL!');
+  })
+  .catch((err) => {
+    console.error('Failed to connect to PostgreSQL:', err.message);
+  });
 
 //====================== Routes =====================//
 
