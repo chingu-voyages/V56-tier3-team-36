@@ -66,8 +66,9 @@ app.post("/new-patient", async (req, res) => {
   const newPatient = req.body;
   try {
     const result = await pool.query(
-      "INSERT INTO patients (first_name, last_name, street_address, city, region, country, telephone, contact_email) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      "INSERT INTO patients (patient_number, first_name, last_name, street_address, city, region, country, telephone, contact_email, current_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *",
       [
+        newPatient.patient_number,
         newPatient.first_name,
         newPatient.last_name,
         newPatient.street_address,
@@ -75,7 +76,8 @@ app.post("/new-patient", async (req, res) => {
         newPatient.region,
         newPatient.country,
         newPatient.telephone,
-        newPatient.contact_email
+        newPatient.contact_email,
+        newPatient.current_status
       ]
     );
     res.status(201).json(result.rows[0]);
@@ -93,7 +95,7 @@ app.put("/patients/:id", async (req, res) => {
   const updatedPatient = req.body;
   try {
     const result = await pool.query(
-      "UPDATE patients SET first_name = $1, last_name = $2, street_address = $3, city = $4, region = $5, country = $6, telephone = $7, contact_email = $8 WHERE num = $9 RETURNING *",
+      "UPDATE patients SET first_name = $1, last_name = $2, street_address = $3, city = $4, region = $5, country = $6, telephone = $7, contact_email = $8, current_status = $9 WHERE num = $10 RETURNING *",
       [
         updatedPatient.first_name,
         updatedPatient.last_name,
@@ -103,6 +105,7 @@ app.put("/patients/:id", async (req, res) => {
         updatedPatient.country,
         updatedPatient.telephone,
         updatedPatient.contact_email,
+        updatedPatient.current_status,
         patientId
       ]
     );
