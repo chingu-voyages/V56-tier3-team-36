@@ -7,7 +7,7 @@ export default function SimpleTable({ columns, rows }) {
         return 'bg-blue-100'; 
       case 'Pre-Procedure':
         return 'bg-yellow-100'; 
-      case 'In-progress':
+      case 'In-Progress':
         return 'bg-red-200'; 
       case 'Closing':
         return 'bg-purple-200'; 
@@ -28,7 +28,7 @@ export default function SimpleTable({ columns, rows }) {
             {columns.map((column) => (
               <th 
                 key={column.id} 
-                classname="text-center bg-gray-100 p-2 font-bold border border-gray-300"
+                className="text-center bg-gray-100 p-2 font-bold border border-gray-300"
               >
                 {column.label}
               </th>
@@ -40,7 +40,7 @@ export default function SimpleTable({ columns, rows }) {
             <tr key={row.id || rowIndex}>
               {columns.map((column) => {
                 const value = row[column.id];
-                const isStatusColumn = column.id === 'currentStatus';
+                const isStatusColumn = column.id === 'current_status';
                 const backgroundColor = isStatusColumn
                   ? getStatusColor(value)
                   : 'transparent';
