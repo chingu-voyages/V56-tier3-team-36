@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-export default function SearchPatient({ onSearch }) {
+export default function SearchPatient({ settingPatientNumber }) {
   const [patientNumber, setPatientNumber] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (patientNumber.length === 6) {
-      onSearch(patientNumber);
+      settingPatientNumber(patientNumber);
     } else {
       alert("Please enter a 6-character patient number.");
     }
@@ -14,10 +14,14 @@ export default function SearchPatient({ onSearch }) {
 
   return (
     <div className="bg-white rounded-3xl shadow-md p-8 w-full max-w-4xl mx-auto mt-8">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">
+      <h2 className="text-2xl font-bold text-gray-900 mb-6 text-left">
         Find Patient to Update
       </h2>
-      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center gap-4">
+      <div className="text-left mb-3 ">Search by Patient Number</div>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col sm:flex-row items-center gap-4"
+      >
         <input
           type="text"
           placeholder="Enter 6-character patient number"

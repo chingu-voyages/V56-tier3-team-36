@@ -8,7 +8,7 @@ import AddressInformation from "./AddressInformation";
 import { FaBuildingCircleCheck } from "react-icons/fa6";
 
 export default function AddPatient() {
-  const [patientID, setPatientID] = useState("");
+  const [patientNumber, setPatientNumber] = useState("");
   const [showPopup, setShowPopup] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -29,20 +29,43 @@ export default function AddPatient() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted the form:", formData);
-    setShowPopup(true);
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      street: "",
-      city: "",
-      state: "",
-      country: "",
-    });
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/create-new-patient",
+        {
+          patient_number: patientNumber,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          street_address: formData.street,
+          city: formData.city,
+          region: formData.state,
+          country: formData.country,
+          telephone: formData.phone,
+          contact_email: formData.email,
+        }
+      );
+
+      console.log("Patient added:", response.data);
+      setShowPopup(true);
+
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        street: "",
+        city: "",
+        state: "",
+        country: "",
+      });
+      setPatientNumber("");
+    } catch (error) {
+      console.error("Error adding patient:", error);
+      alert("Something went wrong adding the patient.");
+    }
   };
 
   useEffect(() => {
@@ -58,7 +81,10 @@ export default function AddPatient() {
 
   return (
     <div>
-      <SixDigitGeneration patientID={patientID} setPatientID={setPatientID} />
+      <SixDigitGeneration
+        patientNumber={patientNumber}
+        setPatientNumber={setPatientNumber}
+      />
       <form onSubmit={handleSubmit}>
         <PersonalInformation formData={formData} handleChange={handleChange} />
         <AddressInformation formData={formData} handleChange={handleChange} />

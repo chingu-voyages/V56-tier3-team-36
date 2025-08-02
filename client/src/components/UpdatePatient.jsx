@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import PersonalInformation from "./PersonalInformation";
 import AddressInformation from "./AddressInformation";
 import SixDigitGeneration from "./SixDigitGeneration";
@@ -6,11 +7,12 @@ import SearchPatient from "./SearchPatient";
 import { FaBuildingCircleCheck } from "react-icons/fa6";
 
 export default function UpdatePatient() {
-  const [patientID, setPatientID] = useState("");
+  const [patientNumber, setPatientNumber] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  const [fetchError, setFetchError] = useState("");
 
   const [formData, setFormData] = useState({
-    firstName: "Alex",
+    firstName: "",
     lastName: "",
     email: "",
     phone: "",
@@ -27,51 +29,110 @@ export default function UpdatePatient() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted the form:", formData);
-    setShowPopup(true);
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      street: "",
-      city: "",
-      state: "",
-      country: "",
-    });
+
+    try {
+      const res = await axios.put(
+        `http://localhost:3000/update-patient/${patientNumber}`,
+        {
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          street_address: formData.street,
+          city: formData.city,
+          region: formData.state,
+          country: formData.country,
+          telephone: formData.phone,
+          contact_email: formData.email,
+        }
+      );
+
+      console.log("Update successful:", res.data);
+      setShowPopup(true);
+    } catch (error) {
+      console.error(
+        "Error updating patient:",
+        error.response?.data || error.message
+      );
+    }
   };
+
+  useEffect(() => {
+    if (patientNumber) {
+      axios
+        .get(`http://localhost:3000/get-patient/${patientNumber}`)
+        .then((res) => {
+          const data = res.data;
+          setFormData({
+            firstName: data.first_name || "",
+            lastName: data.last_name || "",
+            email: data.contact_email || "",
+            phone: data.telephone || "",
+            street: data.street_address || "",
+            city: data.city || "",
+            state: data.region || "",
+            country: data.country || "",
+          });
+          setFetchError("");
+        })
+        .catch((error) => {
+          console.error(
+            "Failed to fetch patient:",
+            error.response?.data || error.message
+          );
+          setFormData({
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            street: "",
+            city: "",
+            state: "",
+            country: "",
+          });
+          setFetchError(
+            "Patient not found. Please check the patient number and try again."
+          );
+        });
+    }
+  }, [patientNumber]);
 
   return (
     <div>
-      <SearchPatient/>
-      <SixDigitGeneration patientID={patientID} setPatientID={setPatientID}/>
+      <SearchPatient settingPatientNumber={setPatientNumber} />
+      {fetchError && (
+        <div className="text-red-600 font-medium text-center mt-2">
+          {fetchError}
+        </div>
+      )}
+      <SixDigitGeneration
+        patientNumber={patientNumber}
+        setPatientNumber={setPatientNumber}
+        isUpdatePage={true}
+      />
       <form onSubmit={handleSubmit}>
         <PersonalInformation formData={formData} handleChange={handleChange} />
         <AddressInformation formData={formData} handleChange={handleChange} />
         <div className="mt-10 flex flex-col">
           <div className="flex flex-row bg-blue-600 text-white font-bold text-l self-center px-8 py-3 rounded-lg mb-4">
-            <FaBuildingCircleCheck className="text-3xl mr-2"/>
-            <button
-              type="submit"
-            >
-              Update patient information
-            </button>
+            <FaBuildingCircleCheck className="text-3xl mr-2" />
+            <button type="submit">Update patient information</button>
           </div>
-          <button 
+          <button
             type="button"
             className="bg-gray-200 font-medium text-gray-600 self-center px-6 py-3 rounded-lg mb-10"
-            onClick={() => setFormData({
-              firstName: "",
-              lastName: "",
-              email: "",
-              phone: "",
-              street: "",
-              city: "",
-              state: "",
-              country: "",
-            })}
+            onClick={() =>
+              setFormData({
+                firstName: "",
+                lastName: "",
+                email: "",
+                phone: "",
+                street: "",
+                city: "",
+                state: "",
+                country: "",
+              })
+            }
           >
             Clear form
           </button>
