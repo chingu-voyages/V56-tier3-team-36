@@ -7,6 +7,7 @@ import SearchPatient from "./SearchPatient";
 import { FaBuildingCircleCheck } from "react-icons/fa6";
 
 export default function UpdatePatient() {
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
   const [patientNumber, setPatientNumber] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [fetchError, setFetchError] = useState("");
@@ -34,7 +35,7 @@ export default function UpdatePatient() {
 
     try {
       const res = await axios.put(
-        `http://localhost:3000/update-patient/${patientNumber}`,
+        `${backendURL}/update-patient/${patientNumber}`,
         {
           first_name: formData.firstName,
           last_name: formData.lastName,
@@ -60,7 +61,7 @@ export default function UpdatePatient() {
   useEffect(() => {
     if (patientNumber) {
       axios
-        .get(`http://localhost:3000/get-patient/${patientNumber}`)
+        .get(`${backendURL}/get-patient/${patientNumber}`)
         .then((res) => {
           const data = res.data;
           setFormData({

@@ -8,6 +8,7 @@ import AddressInformation from "./AddressInformation";
 import { FaBuildingCircleCheck } from "react-icons/fa6";
 
 export default function AddPatient() {
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
   const [patientNumber, setPatientNumber] = useState("");
   const [showPopup, setShowPopup] = useState(false);
 
@@ -34,7 +35,7 @@ export default function AddPatient() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/create-new-patient",
+        `${backendURL}/create-new-patient`,
         {
           patient_number: patientNumber,
           first_name: formData.firstName,
@@ -70,7 +71,7 @@ export default function AddPatient() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/patients")
+      .get(`${backendURL}/patients`)
       .then((res) => {
         console.log("Data received from backend:", res.data);
       })
