@@ -14,26 +14,7 @@ export default function PatientStatus(){
   const [patients, setPatients] = useState([]);
 
   // Option for refreshing the GET every 5 seconds
-  const fetchPatients = async () => {
-      try {
-        const data = await getAllPatients();
-        console.log("Fetched patients:", data);
-        data.sort((a, b) => (a.patient_id > b.patient_id ? 1 : -1));
-        setPatients(data);
-      } catch (err) {
-        console.error("Fetch error:", err);
-      }
-    };
-
-    useEffect(() => {
-    fetchPatients(); // Initial fetch
-    const interval = setInterval(fetchPatients, 5000); // Poll every 5s
-
-    return () => clearInterval(interval); // Cleanup on unmount
-  }, []);
-
-  // useEffect(() => {
-  //   const fetchPatients = async () => {
+  // const fetchPatients = async () => {
   //     try {
   //       const data = await getAllPatients();
   //       console.log("Fetched patients:", data);
@@ -43,8 +24,27 @@ export default function PatientStatus(){
   //       console.error("Fetch error:", err);
   //     }
   //   };
-  //   fetchPatients();
+
+  //   useEffect(() => {
+  //   fetchPatients(); // Initial fetch
+  //   const interval = setInterval(fetchPatients, 5000); // Poll every 5s
+
+  //   return () => clearInterval(interval); // Cleanup on unmount
   // }, []);
+
+  useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        const data = await getAllPatients();
+        console.log("Fetched patients:", data);
+        data.sort((a, b) => (a.patient_id > b.patient_id ? 1 : -1));
+        setPatients(data);
+      } catch (err) {
+        console.error("Fetch error:", err);
+      }
+    };
+    fetchPatients();
+  }, []);
 
   const filteredPatients = patients
   .filter((p) => {
