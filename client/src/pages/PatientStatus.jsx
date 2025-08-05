@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SimpleTable from "../components/SimpleTable"
 import { createRow } from "../components/CreateRow";
 import StatusFlowGuide from "../components/StatusFlowGuide";
-import { getAllPatients } from "./apiServicePatient";
+import { getAllPatients } from "../service/apiServicePatient";
 
 export default function PatientStatus(){
      // Table columns configuration.
