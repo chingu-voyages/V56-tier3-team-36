@@ -83,7 +83,7 @@ export default function PatientStatus(){
         <h1 className='text-4xl font-bold'>Status Board</h1>
         <StatusFlowGuide />
         <div className="bg-white p-4 m-8 rounded-2xl shadow-lg flex flex-col items-center">
-          <div className="w-full max-w-4xl overflow-auto">
+          <div className="w-full max-w-2xl overflow-auto">
             <SimpleTable columns={columns} rows={rows} />
           </div>
         </div>
