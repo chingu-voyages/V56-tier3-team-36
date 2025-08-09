@@ -24,13 +24,9 @@ const pool = new Pool({
   } 
 });
 
-pool.connect()
-  .then(() => {
-    console.log('Connected to PostgreSQL!');
-  })
-  .catch((err) => {
-    console.error('Failed to connect to PostgreSQL:', err.message);
-  });
+pool.on('error', (err) => {
+  console.error('Unexpected error on idle PostgreSQL client:', err.message);
+});
 
 //====================== Routes =====================//
 

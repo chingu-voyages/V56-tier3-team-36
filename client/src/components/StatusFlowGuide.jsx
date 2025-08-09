@@ -28,7 +28,7 @@ export default function StatusFlowGuide() {
                 
                 <div className="flex flex-row max-sm:flex-col max-sm:w-full justify-center items-center gap-2">
                   <li className={`status-flow-guide-button max-sm:w-full ${getStatusColor('Checked In')}`}>1. Checked In </li>
-                  <BiSolidRightArrow className="text-1xl text-blue-600 max-sm:rotate-90 -z-0" />
+                  <BiSolidRightArrow className="text-1xl text-blue-600 max-sm:rotate-90" />
                 </div> 
 
                 <div className="flex flex-row max-sm:flex-col justify-center items-center max-sm:w-full gap-2">
