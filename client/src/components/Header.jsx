@@ -35,18 +35,18 @@ function Header({ logIn, handleLogout, isAdmin, isSurgeon, isAuthenticated }) {
                         Patient Information
                       </Link>
                     )}
-            {(isAdmin || isSurgeon) && (
+            {(isAuthenticated) && (
                       <Link to="/patientstatusupdate" className="text-sm text-blue-600 hover:underline">
                         Patient Status Update
                       </Link>
                     )}
             <Link to='/patientstatus' className="text-sm text-blue-600 hover:underline">Status Board</Link>
-            {(isAdmin || isSurgeon) && (
+            {(isAuthenticated) && (
               <Btn text="Logout"
                  onClick={handleLogout}
             />
             )}
-            {(!isAdmin && !isSurgeon) && (
+            {(!isAuthenticated) && (
               <Btn text="Login"
                  onClick={logIn}
             />
