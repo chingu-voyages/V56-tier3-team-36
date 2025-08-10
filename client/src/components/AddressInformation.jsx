@@ -2,12 +2,12 @@ import { IoLocationSharp } from "react-icons/io5";
 
 export default function AddressInformation({ formData, handleChange }){
   return(
-    <div className="bg-[#FFFFFF] p-4 mt-10 text-black">
+    <div className="bg-[#FFFFFF] p-8 mt-10 text-black max-w-4xl mx-auto rounded-3xl shadow-md">
       <div className="flex items-start mb-4">
         <div className="bg-purple-100 p-1 rounded-full">
           <IoLocationSharp className="text-purple-700 text-4xl" />
         </div>
-        <span className="font-bold ml-2 self-center">Address Information</span>
+        <span className="font-bold ml-2 self-center text-2xl">Address Information</span>
       </div>
 
       <div className="mb-4">
@@ -20,6 +20,7 @@ export default function AddressInformation({ formData, handleChange }){
           value={formData.street}
           onChange={handleChange}
           placeholder="123 Main Street"
+          required
           className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
         />
       </div>
@@ -35,6 +36,7 @@ export default function AddressInformation({ formData, handleChange }){
             value={formData.city}
             onChange={handleChange}
             placeholder="Enter city"
+            required
             className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
           />
         </div>
@@ -49,6 +51,7 @@ export default function AddressInformation({ formData, handleChange }){
             value={formData.state}
             onChange={handleChange}
             placeholder="State, Province, or Region"
+            required
             className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
           />
         </div>
@@ -62,12 +65,13 @@ export default function AddressInformation({ formData, handleChange }){
           name="country"
           value={formData.country}
           onChange={handleChange}
+          required
           className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black"
         >
-          <option>Select Country</option>
-          <option>USA</option>
-          <option>Canada</option>
-          <option>UK</option>
+          <option value="">Select Country</option>
+          <option value="USA">USA</option>
+          <option value="Canada">Canada</option>
+          <option value="UK">UK</option>
         </select>
       </div>
     </div>
