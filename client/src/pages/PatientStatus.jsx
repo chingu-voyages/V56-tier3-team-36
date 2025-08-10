@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SimpleTable from "../components/SimpleTable"
 import { createRow } from "../components/CreateRow";
 import StatusFlowGuide from "../components/StatusFlowGuide";
-import { getAllPatients } from "./apiServicePatient";
+import { getAllPatients } from "../service/apiServicePatient";
 
 export default function PatientStatus(){
      // Table columns configuration.
@@ -14,26 +14,7 @@ export default function PatientStatus(){
   const [patients, setPatients] = useState([]);
 
   // Option for refreshing the GET every 5 seconds
-  const fetchPatients = async () => {
-      try {
-        const data = await getAllPatients();
-        console.log("Fetched patients:", data);
-        data.sort((a, b) => (a.patient_id > b.patient_id ? 1 : -1));
-        setPatients(data);
-      } catch (err) {
-        console.error("Fetch error:", err);
-      }
-    };
-
-    useEffect(() => {
-    fetchPatients(); // Initial fetch
-    const interval = setInterval(fetchPatients, 5000); // Poll every 5s
-
-    return () => clearInterval(interval); // Cleanup on unmount
-  }, []);
-
-  // useEffect(() => {
-  //   const fetchPatients = async () => {
+  // const fetchPatients = async () => {
   //     try {
   //       const data = await getAllPatients();
   //       console.log("Fetched patients:", data);
@@ -43,8 +24,27 @@ export default function PatientStatus(){
   //       console.error("Fetch error:", err);
   //     }
   //   };
-  //   fetchPatients();
+
+  //   useEffect(() => {
+  //   fetchPatients(); // Initial fetch
+  //   const interval = setInterval(fetchPatients, 5000); // Poll every 5s
+
+  //   return () => clearInterval(interval); // Cleanup on unmount
   // }, []);
+
+  useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        const data = await getAllPatients();
+        console.log("Fetched patients:", data);
+        data.sort((a, b) => (a.patient_id > b.patient_id ? 1 : -1));
+        setPatients(data);
+      } catch (err) {
+        console.error("Fetch error:", err);
+      }
+    };
+    fetchPatients();
+  }, []);
 
   const filteredPatients = patients
   .filter((p) => {
@@ -83,7 +83,7 @@ export default function PatientStatus(){
         <h1 className='text-4xl font-bold'>Status Board</h1>
         <StatusFlowGuide />
         <div className="bg-white p-4 m-8 rounded-2xl shadow-lg flex flex-col items-center">
-          <div className="w-full max-w-4xl overflow-auto">
+          <div className="w-full max-w-2xl overflow-auto">
             <SimpleTable columns={columns} rows={rows} />
           </div>
         </div>
