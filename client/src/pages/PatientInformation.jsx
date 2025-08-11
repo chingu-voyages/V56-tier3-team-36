@@ -10,18 +10,18 @@ export default function PatientInformation() {
 
   return (
     <div className="bg-[#F7FAFC]">
-      <div className="bg-[#FFFFFF] p-4 mt-40 mb-15 shadow-md">
-        <div className="font-bold mt-2 text-black text-3xl">
-          Patient Information Management
-        </div>
-        <div className="text-black mt-3 text-lg">
+      <div className="font-bold mt-50 text-black text-3xl">
+        Patient Information Management
+      </div>
+      <div className="bg-[#FFFFFF] p-15 mt-15 mb-15 max-w-6xl mx-auto rounded-3xl shadow-md">
+        <div className="text-black mb-10 text-lg">
           Add new patients or update existing patient information. All required
           fields must be completed.
         </div>
-        <div className="mt-10">
+        <div className="mt-3 flex justify-center gap-10">
           <button
             onClick={() => setMode("add")}
-            className={`text-black font-medium px-6 py-3 mr-4 rounded-lg ${
+            className={`text-black font-medium max-w-50 min-w-35 px-6 py-3 rounded-lg ${
               mode === "add"
                 ? "bg-blue-600 text-white shadow-md"
                 : "bg-gray-300 text-black hover:bg-gray-400"
@@ -32,7 +32,7 @@ export default function PatientInformation() {
 
           <button
             onClick={() => setMode("update")}
-            className={`text-black font-medium px-6 py-3 mr-4 rounded-lg ${
+            className={`text-black font-medium max-w-50 min-w-35 px-6 py-3 rounded-lg ${
               mode === "update"
                 ? "bg-blue-600 text-white shadow-md"
                 : "bg-gray-300 text-black hover:bg-gray-400"
