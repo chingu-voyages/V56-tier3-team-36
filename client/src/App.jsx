@@ -14,7 +14,9 @@ import Home from "./pages/Home";
 import PatientInformation from "./pages/PatientInformation";
 import PatientStatusUpdate from "./pages/PatientStatusUpdate";
 import PatientStatus from "./pages/PatientStatus";
-import Footer from './components/Footer'
+import Footer from "./components/Footer";
+
+import FindPatient from "./components/FindPatient";
 
 const PrivateRoute = ({ condition, children }) => {
   return condition ? children : <Navigate to="/home" replace />;
@@ -27,6 +29,9 @@ function AppContent() {
 
   const isAdmin = isAuthenticated && userRole === "admin";
   const isSurgeon = isAuthenticated && userRole === "surgical team";
+
+//recieving data from the FindPatient component
+const [patientData, setPatientData] = useState(null);
 
   const logIn = () => {
       console.log("Login button clicked from App.jsx!");
@@ -65,10 +70,12 @@ function AppContent() {
       }
     };
 
-
   console.log("App rendering with logIn function:", typeof logIn);
   console.log("logIn function value:", logIn); // Debug log
 
+  function handlePatientData(data){
+    setPatientData(data)
+  }
 
   return (
 <>
@@ -76,7 +83,16 @@ function AppContent() {
       {showModal && (
         <LogInModal onClose={handleClose} handleLogin={handleLogin} />
       )}
-
+      {/* <FindPatient onPatientData = {handlePatientData} /> */}
+      
+      {/* {patientData && (
+        <PatientStatusUpdate 
+        patient_number={patientData.patient_number}
+        first_name={patientData.first_name}
+        last_name={patientData.last_name}
+        statusOfPatient={patientData.statusOfPatient}
+        />
+      )} */}
       <Routes>
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<Home />} />
@@ -97,10 +113,20 @@ function AppContent() {
           path="/patientstatusupdate"
           element={
               <PrivateRoute condition={(isAdmin || isSurgeon)}>
-                <PatientStatusUpdate />
-              </PrivateRoute>
-            }
-        />
+{(<PatientStatusUpdate 
+// onPatientData = {handlePatientData}
+        // patient_number={patientData.patient_number}
+        // first_name={patientData.first_name}
+        // last_name={patientData.last_name}
+        // statusOfPatient={patientData.statusOfPatient}
+
+        />)}
+
+{/* <FindPatient onPatientData = {handlePatientData} /> */}
+
+                     </PrivateRoute>
+            
+      }/>
 
         <Route path="/patientstatus" element={<PatientStatus />} />
       </Routes>
