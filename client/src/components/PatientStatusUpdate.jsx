@@ -1,11 +1,13 @@
-export default function PatientStatusUpdate (patient_number, first_name, last_name, statusOfPatient){
+export default function PatientStatusUpdate ({ patient }){
 
     function handleSubmit(event){
         event.preventDefault();
         console.log("Button was pressed")
         //handle moving patient status to the next available status here
     }
-
+  if (!patient) {
+    return <div>Loading patient data...</div>; // Or return null, or a loading spinner
+  }
 
     return (
  <div className="bg-white px-20 py-10 m-8 mb-30 rounded-2xl shadow-lg flex flex-col items-center">
@@ -13,8 +15,10 @@ export default function PatientStatusUpdate (patient_number, first_name, last_na
             
             <div>
                 <form onSubmit={handleSubmit}>
-                    <h4>Patient {first_name} Current Status: {statusOfPatient}</h4>
-                   <h4>Move Patient {patient_number} to ____ Status</h4>
+                    <h4>Patient {patient.patient_number } Current Status: 
+                        {/* {patient.current_status ? patient.current_status: 'No Status'}  */}
+                        </h4>
+                   <h4>Move Patient to ____ Status</h4>
                     <button className="bg-blue-600 p-4 mt-4 rounded-2xl shadow-md flex flex-col hover:bg-blue-700 transition-colors duration-300 cursor-pointer"
                     type="submit"
                     >                

@@ -73,9 +73,9 @@ const [patientData, setPatientData] = useState(null);
   console.log("App rendering with logIn function:", typeof logIn);
   console.log("logIn function value:", logIn); // Debug log
 
-  function handlePatientData(data){
-    setPatientData(data)
-  }
+  // function handlePatientData(data){
+  //   setPatientData(data)
+  // }
 
   return (
 <>
