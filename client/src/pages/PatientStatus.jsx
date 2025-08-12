@@ -79,7 +79,7 @@ export default function PatientStatus(){
   );
 
   return(
-    <div className="bg-blue-background pt-50">
+    <div className="bg-blue-background pt-50 flex-grow">
         <h1 className='text-4xl font-bold'>Status Board</h1>
         <StatusFlowGuide />
         <div className="bg-white p-4 m-8 rounded-2xl shadow-lg flex flex-col items-center">

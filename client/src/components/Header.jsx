@@ -10,7 +10,7 @@ function Header({ logIn, isAdmin, isSurgeon }) {
   console.log("Header rendered with logIn function:", typeof logIn); // Debug log
 
   return (
-    <div className="w-full">
+    <div className="w-full z-10">
       <header className="text-white bg-gray-800 font-bold flex items-center justify-between top-0 left-0 fixed w-full">
         <div className="flex items-center">
           <BsHospital className="md:text-6xl text-3xl m-4 text-blue-600" />

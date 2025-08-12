@@ -10,19 +10,12 @@ const [patientData, setPatientData] = useState(null);
   //function to handle getting data from db
   const getData = async (searchId) => {
     const response = await fetch(
-      `http://localhost:3000/patient-status/${searchId}`
+      `http://localhost:3000/get-patient/${searchId}`
     );
     if (!response.ok) throw new Error("Not a valid patient number");
     const data = await response.json();
     console.log(data)
     setPatientData(data);
-    // const patientInfo = {
-    //   patient_number: data.patient_number,
-    //   first_name: data.first_name,
-    //   last_name: data.last_name,
-    //   statusOfPatient: data.current_status,
-    // };
-    // return patientInfo;
   };
 
   //Function to handle button press
