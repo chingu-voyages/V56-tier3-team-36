@@ -1,54 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { Link } from "react-router-dom"; // Change this line - use destructured import
 import { BsHospital } from "react-icons/bs";
+import Btn from "./Btn";
+import { LogInModal } from "./LogInModal";
+import TimeDisplay from "./TimeDisplay";
+// import Link from "react-router-dom/Link";
 
-export default function Header() {
-  const [now, setNow] = React.useState(new Date());
-  const [initialRenderTime] = useState(new Date()); // No 'setInitialRenderTime' needed if it never changes
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setNow(new Date());
-    }, 1000); // Update every second
-    return () => clearInterval(intervalId); //
-    // Cleanup the interval on component unmount
-  }, []);
-
-  // Options for the full date format (e.g., "Sunday, July 13, 2025")
-  const fullDateOptions = {
-    weekday: "long", // "Sunday"
-    year: "numeric", // "2025"
-    month: "long", // "July"
-    day: "numeric", // "13"
-  };
-
-  // Options for the short time format (e.g., "1:05 PM")
-  const shortTimeOptions = {
-    hour: "numeric", // "1"
-    minute: "2-digit", // "05"
-    hour12: true, // "PM"
-  };
+function Header({ logIn, isAdmin, isSurgeon }) {
+  console.log("Header rendered with logIn function:", typeof logIn); // Debug log
 
   return (
-    <div className="w-full">
+    <div className="w-full z-10">
       <header className="text-white bg-gray-800 font-bold flex items-center justify-between top-0 left-0 fixed w-full">
         <div className="flex items-center">
           <BsHospital className="md:text-6xl text-3xl m-4 text-blue-600" />
           <div className="flex flex-col justify-items-start items-start">
-            <h1 className="text-left md:text-3xl text-lg">SurgiTrack</h1>
-            <h2 className="font-medium text-sm">Track your loved one's procedure</h2>
+            <Link
+              to="/home"
+              className="text-left md:text-3xl text-lg hover:text-blue-300 transition-colors duration-200"
+            >
+              <h1>SurgiTrack</h1>
+            </Link>
+            <h2 className="font-medium text-sm">
+              Track your loved one's procedure
+            </h2>
           </div>
         </div>
         <div className="m-4 flex flex-col justify-items-center items-end">
-          <h3 className="md:text-3xl text-lg font-bold">{now.toLocaleTimeString()}</h3>
-          <h3 className="md:text-sm text-xs font-medium">
-            {now.toLocaleDateString(undefined, fullDateOptions)}
-          </h3>
-          <h3 className="text-blue-600 font-bold text-sm">
-            Last Updated:{" "}
-            {initialRenderTime.toLocaleTimeString(undefined, shortTimeOptions)}
-          </h3>
+          <TimeDisplay />
+          <div className="flex items-center gap-6 mt-2">
+            <Link to='/home' className="text-sm text-blue-600 hover:underline">Home</Link>
+            {isAdmin && (
+                      <Link to="/patientinformation" className="text-sm text-blue-600 hover:underline">
+                        Patient Information
+                      </Link>
+                    )}
+            {(isAdmin || isSurgeon) && (
+                      <Link to="/patientstatusupdate" className="text-sm text-blue-600 hover:underline">
+                        Patient Status Update
+                      </Link>
+                    )}
+            <Link to='/patientstatus' className="text-sm text-blue-600 hover:underline">Status Board</Link>
+            <Btn text="Login"
+                 onClick={logIn}
+            />
+          </div>
+          
         </div>
       </header>
     </div>
   );
 }
+export default Header;
+

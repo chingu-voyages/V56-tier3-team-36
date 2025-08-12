@@ -3,7 +3,7 @@ import PromoCard from '../components/PromoCard';
 import Button from '../components/Button';
 import { IoTimer, IoPeople } from 'react-icons/io5';
 import { MdPrivacyTip } from 'react-icons/md';
-import Footer from '../components/Footer';
+import { useNavigate } from 'react-router-dom';
 
 
 function Home() {
@@ -13,11 +13,12 @@ function Home() {
     bodyElement.classList.add('bg-gradient-to-br');
   }
 
+  const navigate = useNavigate();
   return (
     <>
-      <div className='w-full h-12 bg-gray-300 text-white flex items-center justify-center'>Upper Holder</div>
-      <div className='w-full h-21 bg-gray-800 text-white flex items-center justify-center'>Header Holder</div>
-      <main className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
+      {/* <div className='w-full h-12 bg-gray-300 text-white flex items-center justify-center'>Upper Holder</div>
+      <div className='w-full h-21 bg-gray-800 text-white flex items-center justify-center'>Header Holder</div> */}
+      <main className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-50 flex flex-grow items-center'> 
         <div id="home">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Welcome to Surgery Status Board</h2>
@@ -45,11 +46,10 @@ function Home() {
           </div>
           <Button
             title="View Current Status Board"
-            onPress={() => { console.log('Button pressed!'); }}
+            onPress={() => navigate('/patientstatus')}
           />
         </div>
       </main>
-      <Footer />
     </>
   )
 }
