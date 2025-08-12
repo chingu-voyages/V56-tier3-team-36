@@ -32,7 +32,43 @@ pool.connect()
     console.error('Failed to connect to PostgreSQL:', err.message);
   });
 
+function generatePatientNumber() {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let number = "";
+  for (let i = 0; i < 6; i++) {
+    number += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return number;
+}
+
+async function getUniquePatientNumber() {
+  let unique = false;
+  let newNumber;
+  while (!unique) {
+    newNumber = generatePatientNumber();
+    const result = await pool.query(
+      "SELECT 1 FROM patients WHERE patient_number = $1 LIMIT 1",
+      [newNumber]
+    );
+    if (result.rows.length === 0) {
+      unique = true;
+    }
+  }
+  return newNumber;
+}
+
 //====================== Routes =====================//
+
+// generate patient number
+app.get("/generate-patient-number", async (req, res) => {
+  try {
+    const number = await getUniquePatientNumber();
+    res.json({ patient_number: number });
+  } catch (error) {
+    console.error("Error generating patient number:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 // get all patients
 
@@ -66,12 +102,30 @@ app.get("/get-patient/:patientNumber", async (req, res) => {
 
 // add a new patient
 app.post("/create-new-patient", async (req, res) => {
-  const newPatient = req.body;
   try {
+    let patientNumber = req.body.patient_number;
+
+    let exists = true;
+    while (exists) {
+      if (!patientNumber) {
+        patientNumber = await getUniquePatientNumber();
+      }
+      const check = await pool.query(
+        "SELECT 1 FROM patients WHERE patient_number = $1 LIMIT 1",
+        [patientNumber]
+      );
+      if (check.rows.length === 0) {
+        exists = false;
+      } else {
+        patientNumber = await getUniquePatientNumber();
+      }
+    }
+
+    const newPatient = req.body;
     const result = await pool.query(
       "INSERT INTO patients (patient_number, first_name, last_name, street_address, city, region, country, telephone, contact_email) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
       [
-        newPatient.patient_number,
+        patientNumber,
         newPatient.first_name,
         newPatient.last_name,
         newPatient.street_address,
