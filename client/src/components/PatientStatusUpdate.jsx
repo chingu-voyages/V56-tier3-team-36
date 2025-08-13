@@ -8,6 +8,8 @@ export default function PatientStatusUpdate({ patient }) {
     event.preventDefault();
     console.log("Next Status Button was pressed");
     //handle moving patient status to the next available status here
+                console.log(patient)
+
     const movingToStatus = `${nextStatus(patient.current_status)}`;
     console.log(`This is the next patient status to set: ${movingToStatus}`);
     try {
@@ -114,16 +116,35 @@ async function moveStatusBack(event) {
             onSubmit={handleSubmit}
             className="flex items-center justify-center flex-col mb-5"
           >
-            <h4>
-              Patient{" "}
-              <span className="font-bold">{patient.patient_number}</span>{" "}
-              Current Status:{" "}
-              <span className="font-bold">
+           
+              <p> <span className="font-bold">Patient Number: {" "}</span>
+              {patient.patient_number}{" "}</p>
+
+              <p><span className="font-bold">Current Status:{" "}</span>
                 {patient.current_status ?? "None"}
-              </span>
-              {/* {patient.current_status ? patient.current_status: 'No Status'}  */}
-            </h4>
-            <h4>
+              </p>
+
+              <p><span className="font-bold">Name: {" "}</span> 
+              {patient.first_name} {patient.last_name} 
+              </p>
+
+              <p><span className="font-bold">Address: {" "}</span>
+               {patient.street_address}
+               </p>
+
+              <p><span className="font-bold">City: {" "}</span> 
+              {patient.city}
+              </p>
+
+              <p><span className="font-bold">State: {" "}</span> 
+              {patient.region}
+              </p>
+
+              <p><span className="font-bold">Telephone: {" "}</span>
+               {patient.telephone}
+               </p>
+
+            <h4 className="m-10">
               Click Below to Move Patient to{" "}
               <span className="font-bold">
                 {nextStatus(patient.current_status)}
