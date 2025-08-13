@@ -10,3 +10,28 @@ export const getAllPatients = async () => {
     throw Error(`Error fetching patients: ${error.message}`);
   }
 }
+
+// ================= SSE Subscription =================
+export const subscribePatientUpdates = (onUpdate) => {
+  const eventSource = new EventSource(`${patientsApiUrl}/events`);
+
+  eventSource.onopen = () => console.log("SSE connected");
+  
+  eventSource.onmessage = (event) => {
+    try {
+      const updatedPatient = JSON.parse(event.data);
+      console.log("SSE update received:", updatedPatient);
+      onUpdate(updatedPatient); 
+    } catch (err) {
+      console.error("Error parsing SSE message:", err);
+    }
+  };
+
+  eventSource.onerror = (err) => {
+    console.error("SSE error", err);
+    eventSource.close();
+  };
+
+  // Return the EventSource so the component can close it on unmount
+  return eventSource;
+};

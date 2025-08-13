@@ -28,6 +28,33 @@ pool.on('error', (err) => {
   console.error('Unexpected error on idle PostgreSQL client:', err.message);
 });
 
+//=============== SSE Setup ================//
+let sseClients = [];
+
+app.get("/events", (req, res) => {
+  res.set({
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache",
+    "Connection": "keep-alive",
+  });
+
+  // Keep connection alive
+  res.write(": connected\n\n");
+
+  sseClients.push(res);
+
+  req.on("close", () => {
+    sseClients = sseClients.filter(client => client !== res);
+  });
+});
+
+// Helper to broadcast updates
+function broadcastPatientUpdate(patient) {
+  sseClients.forEach(client => {
+    client.write(`data: ${JSON.stringify(patient)}\n\n`);
+  });
+}
+
 //====================== Routes =====================//
 
 // get all patients
@@ -151,7 +178,12 @@ app.put("/update-patient-status/:patientNumber", async (req, res) => {
       ]
     );
     if (result.rows.length > 0) {
-      res.json(result.rows[0]);
+      const updatedPatient = result.rows[0];
+      
+      // Broadcast to SSE clients
+      broadcastPatientUpdate(updatedPatient);
+
+      res.json(updatedPatient);
     } else {
       res.status(404).send("Patient not found");
     }
