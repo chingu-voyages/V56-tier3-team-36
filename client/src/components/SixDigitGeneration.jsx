@@ -7,7 +7,7 @@ export default function SixDigitGeneration({
   isUpdatePage = false,
 }) {
   const backendURL = import.meta.env.VITE_BACKEND_URL;
-  //comment this useeffect if you want to test 6 digit generation
+  // comment this useeffect if you want to test 6 digit generation
   useEffect(() => {
     if (!isUpdatePage && !patientNumber) {
       fetch(`${backendURL}/generate-patient-number`)
@@ -34,7 +34,7 @@ export default function SixDigitGeneration({
         <div>Patient Number</div>
         <input
           type="text"
-          value={patientNumber}
+          value={patientNumber ? patientNumber.toUpperCase() : ""}
           readOnly
           //uncomment this line if you want to test 6 digit generation
           // onChange={(e) => setPatientNumber(e.target.value)}
