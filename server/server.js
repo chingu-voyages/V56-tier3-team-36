@@ -8,7 +8,7 @@ const { Pool } = require("pg");
 dotenv.config();
 const app = express();
 app.use(cors({
-  origin: ["https://surgitrack.vercel.app", "http://localhost:5173"]
+  origin: ["https://surgitrack.vercel.app", "http://localhost:5173", "https://surgitrack-kz8z9hqbj-pdv88s-projects.vercel.app"]
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
