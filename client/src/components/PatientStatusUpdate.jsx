@@ -1,55 +1,167 @@
-import { patientStatus } from '../assets/data/patientStatus'
+import { patientStatus } from "../assets/data/patientStatus";
+import React, { useState } from "react";
 
-export default function PatientStatusUpdate ({ patient }){
+export default function PatientStatusUpdate({ patient }) {
+  const [statusMessage, setStatusMessage] = useState("");
 
-    function handleSubmit(event){
-        event.preventDefault();
-        console.log("Button was pressed")
-        //handle moving patient status to the next available status here
-    }
+  async function handleSubmit(event) {
+    event.preventDefault();
+    console.log("Next Status Button was pressed");
+    //handle moving patient status to the next available status here
+    const movingToStatus = `${nextStatus(patient.current_status)}`;
+    console.log(`This is the next patient status to set: ${movingToStatus}`);
+    try {
+      const response = await fetch(
+        `http://localhost:3000/update-patient-status/${patient.patient_number}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            current_status: movingToStatus,
+          }),
+        }
+      );
 
-    console.log(patientStatus)
-
-    function nextStatus(currentStatus){
-      let newStatus;
-  console.log(patientStatus[currentStatus])
-      if (patientStatus.includes(currentStatus)){
-console.log(`This is a current status ${currentStatus}`)
-//ensure that it won't move forward if in the last status
-newStatus(patientStatus[currentStatus] + 1)      
-}
-      else {
-        console.log("No Status Found, move to the first status")
-       newStatus(patientStatus[currentStatus + 1])   
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
       }
-      return newStatus;
-    }
 
+      const data = await response.json();
+      console.log("Status updated successfully:", data);
+      setStatusMessage(`✅ Patient moved to "${movingToStatus}" status.`);
+    } catch (error) {
+      console.error("Error updating status:", error);
+      setStatusMessage("❌ Failed to update patient status.");
+    }
+  }
+
+  // //function to move status to the next in displayed text, and return it
+
+  function nextStatus(currentStatus) {
+    if (!Array.isArray(patientStatus) || patientStatus.length === 0) {
+      console.error("patientStatus is not a valid non-empty array");
+      return null;
+    }
+    //handles if there is no patient status
+    const currentIndex = patientStatus.indexOf(currentStatus);
+    if (currentIndex === -1) {
+      return patientStatus[0];
+    }
+    if (currentIndex === patientStatus.length - 1) {
+      return patientStatus[0];
+    } else {
+      return patientStatus[currentIndex + 1];
+    }
+  }
+
+function previousStatus(currentStatus) {
+  if (!Array.isArray(patientStatus) || patientStatus.length === 0) {
+    console.error("patientStatus is not a valid non-empty array");
+    return null;
+  }
+
+  const currentIndex = patientStatus.indexOf(currentStatus);
+
+  if (currentIndex <= 0) {
+    console.log("Patient is at the first status. There is no previous status");
+    setStatusMessage("Patient is at the first status. There are no previous statuses.");
+    return null;
+  }
+
+  return patientStatus[currentIndex - 1];
+}
+
+// Button handler
+async function moveStatusBack(event) {
+  // event.preventDefault();
+
+  const prevStatus = previousStatus(patient.current_status);
+
+  if (!prevStatus) return; // No previous status, stop here
+
+  try {
+    const response = await fetch(
+      `http://localhost:3000/update-patient-status/${patient.patient_number}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ current_status: prevStatus }),
+      }
+    );
+
+    if (!response.ok) throw new Error(`Server error: ${response.status}`);
+
+    const data = await response.json();
+    console.log("Status updated successfully:", data);
+    setStatusMessage(`✅ Patient moved to "${prevStatus}" status.`);
+  } catch (error) {
+    console.error("Error updating status:", error);
+    setStatusMessage("❌ Failed to update patient status.");
+  }
+}
 
   if (!patient) {
     return <div>Loading patient data...</div>; // Or return null, or a loading spinner
   }
 
-    return (
- <div className="bg-white px-20 py-10 m-8 mb-30 rounded-2xl shadow-lg flex flex-col items-center">
-           <div className="flex gap-5"> 
+  return (
+    <div className="bg-white px-20 py-10 m-8 mb-30 rounded-2xl shadow-lg flex flex-col items-center">
+      <div className="flex gap-5">
+        <div>
+          <form
+            onSubmit={handleSubmit}
+            className="flex items-center justify-center flex-col mb-5"
+          >
+            <h4>
+              Patient{" "}
+              <span className="font-bold">{patient.patient_number}</span>{" "}
+              Current Status:{" "}
+              <span className="font-bold">
+                {patient.current_status ?? "None"}
+              </span>
+              {/* {patient.current_status ? patient.current_status: 'No Status'}  */}
+            </h4>
+            <h4>
+              Click Below to Move Patient to{" "}
+              <span className="font-bold">
+                {nextStatus(patient.current_status)}
+              </span>{" "}
+              Status
+            </h4>
+            <button
+              className="bg-blue-600 p-4 mt-4 rounded-2xl shadow-md flex flex-col hover:bg-blue-700 transition-colors duration-300 cursor-pointer"
+              type="submit"
+            >
+              <h1 className="text-md font-bold text-white flex items-center justify-center gap-3">
+                Next Status
+              </h1>
+            </button>
             
-            <div>
-                <form onSubmit={handleSubmit}>
-                    <h4>Patient {patient.patient_number } Current Status: {patient.current_status ?? "None"}
-                        {/* {patient.current_status ? patient.current_status: 'No Status'}  */}
-                        </h4>
-                   <h4>Move Patient to {nextStatus(patient.current_status)} Status</h4>
-                    <button className="bg-blue-600 p-4 mt-4 rounded-2xl shadow-md flex flex-col hover:bg-blue-700 transition-colors duration-300 cursor-pointer"
-                    type="submit"
-                    >                
-<h1 className="text-md font-bold text-white flex items-center gap-3">
-                        Next Status placeholder</h1>
-                        </button>
-                </form>
-            </div>
-            </div>
-</div>
-      
-         )
-}
+            <button
+  onClick={() => moveStatusBack(patient.current_status)}
+              className="bg-blue-600 p-4 mt-4 rounded-2xl shadow-md flex flex-col hover:bg-blue-700 transition-colors duration-300 cursor-pointer"
+              type="button"
+            >
+              <h1 className="text-md font-bold text-white flex items-center justify-center gap-3">
+                Previous Status
+              </h1>
+            </button>
+
+          </form>
+
+          {statusMessage && (
+            <p
+              style={{
+                color: statusMessage.startsWith("✅") ? "green" : "red",
+              }}
+            >
+              {statusMessage}
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};

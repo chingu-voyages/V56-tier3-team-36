@@ -19,6 +19,7 @@ const [patientData, setPatientData] = useState(null);
   };
 
   //Function to handle button press
+  //Returns the results of the search in the UI
   async function handleFetchData(event) {
     event.preventDefault();
     console.log("submit button was pressed");

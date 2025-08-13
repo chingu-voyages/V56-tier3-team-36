@@ -1,5 +1,5 @@
 export const patientStatus = [
-    'None',
+
    'Checked In',
    'Pre-Procedure',
    'In-Progress',
