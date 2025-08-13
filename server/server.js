@@ -7,9 +7,22 @@ const { Pool } = require("pg");
 
 dotenv.config();
 const app = express();
+
+const allowedOrigins = [
+  "https://surgitrack.vercel.app",
+  "http://localhost:5173"
+];
+
 app.use(cors({
-  origin: ["https://surgitrack.vercel.app", "http://localhost:5173", "https://surgitrack-kz8z9hqbj-pdv88s-projects.vercel.app"]
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin) || origin.includes('vercel.app')) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS blocked for origin: " + origin));
+    }
+  }
 }));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
