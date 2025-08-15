@@ -1,20 +1,23 @@
 import { patientStatus } from "../assets/data/patientStatus";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function PatientStatusUpdate({ patient }) {
   const [statusMessage, setStatusMessage] = useState("");
+  const [loading, setLoading] = useState(!patient);
+  const [notFound, setNotFound] = useState(false);
+
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   async function handleSubmit(event) {
     event.preventDefault();
     console.log("Next Status Button was pressed");
-    //handle moving patient status to the next available status here
-                console.log(patient)
 
     const movingToStatus = `${nextStatus(patient.current_status)}`;
+
     console.log(`This is the next patient status to set: ${movingToStatus}`);
     try {
       const response = await fetch(
-        `http://localhost:3000/update-patient-status/${patient.patient_number}`,
+        `${backendUrl}/update-patient-status/${patient.patient_number}`,
         {
           method: "PUT",
           headers: {
@@ -27,6 +30,7 @@ export default function PatientStatusUpdate({ patient }) {
       );
 
       if (!response.ok) {
+        console.error("Error, no patient number");
         throw new Error(`Server error: ${response.status}`);
       }
 
@@ -58,54 +62,52 @@ export default function PatientStatusUpdate({ patient }) {
     }
   }
 
-function previousStatus(currentStatus) {
-  if (!Array.isArray(patientStatus) || patientStatus.length === 0) {
-    console.error("patientStatus is not a valid non-empty array");
-    return null;
+  function previousStatus(currentStatus) {
+    if (!Array.isArray(patientStatus) || patientStatus.length === 0) {
+      console.error("patientStatus is not a valid non-empty array");
+      return null;
+    }
+
+    const currentIndex = patientStatus.indexOf(currentStatus);
+
+    if (currentIndex <= 0) {
+      console.log(
+        "Patient is at the first status. There is no previous status"
+      );
+      setStatusMessage(
+        "Patient is at the first status. There are no previous statuses."
+      );
+      return null;
+    }
+
+    return patientStatus[currentIndex - 1];
   }
 
-  const currentIndex = patientStatus.indexOf(currentStatus);
+  // Button handler
+  async function moveStatusBack(event) {
+    const prevStatus = previousStatus(patient.current_status);
 
-  if (currentIndex <= 0) {
-    console.log("Patient is at the first status. There is no previous status");
-    setStatusMessage("Patient is at the first status. There are no previous statuses.");
-    return null;
-  }
+    if (!prevStatus) return; // No previous status, stop here
 
-  return patientStatus[currentIndex - 1];
-}
+    try {
+      const response = await fetch(
+        `${backendUrl}/update-patient-status/${patient.patient_number}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ current_status: prevStatus }),
+        }
+      );
 
-// Button handler
-async function moveStatusBack(event) {
-  // event.preventDefault();
+      if (!response.ok) throw new Error(`Server error: ${response.status}`);
 
-  const prevStatus = previousStatus(patient.current_status);
-
-  if (!prevStatus) return; // No previous status, stop here
-
-  try {
-    const response = await fetch(
-      `http://localhost:3000/update-patient-status/${patient.patient_number}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ current_status: prevStatus }),
-      }
-    );
-
-    if (!response.ok) throw new Error(`Server error: ${response.status}`);
-
-    const data = await response.json();
-    console.log("Status updated successfully:", data);
-    setStatusMessage(`✅ Patient moved to "${prevStatus}" status.`);
-  } catch (error) {
-    console.error("Error updating status:", error);
-    setStatusMessage("❌ Failed to update patient status.");
-  }
-}
-
-  if (!patient) {
-    return <div>Loading patient data...</div>; // Or return null, or a loading spinner
+      const data = await response.json();
+      console.log("Status updated successfully:", data);
+      setStatusMessage(`✅ Patient moved to "${prevStatus}" status.`);
+    } catch (error) {
+      console.error("Error updating status:", error);
+      setStatusMessage("❌ Failed to update patient status.");
+    }
   }
 
   return (
@@ -116,33 +118,41 @@ async function moveStatusBack(event) {
             onSubmit={handleSubmit}
             className="flex items-center justify-center flex-col mb-5"
           >
-           
-              <p> <span className="font-bold">Patient Number: {" "}</span>
-              {patient.patient_number}{" "}</p>
+            <p>
+              {" "}
+              <span className="font-bold">Patient Number: </span>
+              {patient.patient_number}{" "}
+            </p>
 
-              <p><span className="font-bold">Current Status:{" "}</span>
-                {patient.current_status ?? "None"}
-              </p>
+            <p>
+              <span className="font-bold">Current Status: </span>
+              {patient.current_status ?? "None"}
+            </p>
 
-              <p><span className="font-bold">Name: {" "}</span> 
-              {patient.first_name} {patient.last_name} 
-              </p>
+            <p>
+              <span className="font-bold">Name: </span>
+              {patient.first_name} {patient.last_name}
+            </p>
 
-              <p><span className="font-bold">Address: {" "}</span>
-               {patient.street_address}
-               </p>
+            <p>
+              <span className="font-bold">Address: </span>
+              {patient.street_address}
+            </p>
 
-              <p><span className="font-bold">City: {" "}</span> 
+            <p>
+              <span className="font-bold">City: </span>
               {patient.city}
-              </p>
+            </p>
 
-              <p><span className="font-bold">State: {" "}</span> 
+            <p>
+              <span className="font-bold">State: </span>
               {patient.region}
-              </p>
+            </p>
 
-              <p><span className="font-bold">Telephone: {" "}</span>
-               {patient.telephone}
-               </p>
+            <p>
+              <span className="font-bold">Telephone: </span>
+              {patient.telephone}
+            </p>
 
             <h4 className="m-10">
               Click Below to Move Patient to{" "}
@@ -151,6 +161,7 @@ async function moveStatusBack(event) {
               </span>{" "}
               Status
             </h4>
+
             <button
               className="bg-blue-600 p-4 mt-4 rounded-2xl shadow-md flex flex-col hover:bg-blue-700 transition-colors duration-300 cursor-pointer"
               type="submit"
@@ -159,9 +170,9 @@ async function moveStatusBack(event) {
                 Next Status
               </h1>
             </button>
-            
+
             <button
-  onClick={() => moveStatusBack(patient.current_status)}
+              onClick={() => moveStatusBack(patient.current_status)}
               className="bg-blue-600 p-4 mt-4 rounded-2xl shadow-md flex flex-col hover:bg-blue-700 transition-colors duration-300 cursor-pointer"
               type="button"
             >
@@ -169,8 +180,8 @@ async function moveStatusBack(event) {
                 Previous Status
               </h1>
             </button>
-
           </form>
+     
 
           {statusMessage && (
             <p
@@ -185,4 +196,4 @@ async function moveStatusBack(event) {
       </div>
     </div>
   );
-};
+}

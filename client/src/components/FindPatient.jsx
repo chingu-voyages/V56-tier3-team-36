@@ -1,41 +1,37 @@
 import { IoIosSearch } from "react-icons/io";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PatientStatusUpdate from "./PatientStatusUpdate";
+import { getData } from "./GetDataFunction";
 
 export default function FindPatient() {
   const [searchId, setSearchId] = useState("");
   const [showUpdatePatientStatus, setUpdatePatientStatus] = useState(false);
-const [patientData, setPatientData] = useState(null);
+  const [patientData, setPatientData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [notFound, setNotFound] = useState(false);
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-  //function to handle getting data from db
-  const getData = async (searchId) => {
-    const response = await fetch(
-      `http://localhost:3000/get-patient/${searchId}`
-    );
-    if (!response.ok) throw new Error("Not a valid patient number");
-    const data = await response.json();
-    console.log(data)
-    setPatientData(data);
-  };
-
-  //Function to handle button press
-  //Returns the results of the search in the UI
-  async function handleFetchData(event) {
+async function handleFetchData(event) {
     event.preventDefault();
-    console.log("submit button was pressed");
-    console.log(searchId);
-    if (searchId.trim() !== "") {
-      setUpdatePatientStatus(true);
-      try {
-        const data = await getData(searchId);
-        //do something with the data returned]
-        // setPatientData(data)
+    setLoading(true);
+    setNotFound(false);
+    setPatientData(null);
+    setUpdatePatientStatus(false);
 
-      } catch (err) {
-        console.error(err.message);
-      }
+    try {
+      const data = await getData(searchId, backendUrl);
+      setPatientData(data);
+      setUpdatePatientStatus(true);
+    } catch (err) {
+      console.error(err.message);
+      setNotFound(true);
+    } finally {
+      setLoading(false);
     }
   }
+
+  if (loading) return <div className="message">Loading patient data...</div>;
+  if (notFound) return <div>No patient found.</div>;
 
   return (
     <div className="bg-white p-4 m-8 mb-30 rounded-2xl shadow-lg flex flex-col items-center">
@@ -66,7 +62,7 @@ const [patientData, setPatientData] = useState(null);
           </button>
         </div>
       </form>
-      {showUpdatePatientStatus && <PatientStatusUpdate patient = {patientData} />}
+      {showUpdatePatientStatus && <PatientStatusUpdate patient={patientData} />}
     </div>
   );
 }
