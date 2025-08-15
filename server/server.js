@@ -55,7 +55,43 @@ function broadcastPatientUpdate(patient) {
   });
 }
 
+function generatePatientNumber() {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let number = "";
+  for (let i = 0; i < 6; i++) {
+    number += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return number;
+}
+
+async function getUniquePatientNumber() {
+  let unique = false;
+  let newNumber;
+  while (!unique) {
+    newNumber = generatePatientNumber();
+    const result = await pool.query(
+      "SELECT 1 FROM patients WHERE patient_number = $1 LIMIT 1",
+      [newNumber]
+    );
+    if (result.rows.length === 0) {
+      unique = true;
+    }
+  }
+  return newNumber;
+}
+
 //====================== Routes =====================//
+
+// generate patient number
+app.get("/generate-patient-number", async (req, res) => {
+  try {
+    const number = await getUniquePatientNumber();
+    res.json({ patient_number: number });
+  } catch (error) {
+    console.error("Error generating patient number:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 // get all patients
 
@@ -73,7 +109,7 @@ app.get("/patients", async(req, res) => {
 
 // get patient by patient number
 app.get("/get-patient/:patientNumber", async (req, res) => {
-  const patientNumber = req.params.patientNumber;
+  const patientNumber = req.params.patientNumber.toUpperCase();
   try {
     const result = await pool.query("SELECT * FROM patients WHERE patient_number = $1", [patientNumber]);
     if (result.rows.length > 0) {
@@ -89,12 +125,34 @@ app.get("/get-patient/:patientNumber", async (req, res) => {
 
 // add a new patient
 app.post("/create-new-patient", async (req, res) => {
-  const newPatient = req.body;
   try {
+    let patientNumber = req.body.patient_number;
+
+    if(patientNumber) {
+      patientNumber=patientNumber.toUpperCase();
+    }
+
+    let exists = true;
+    while (exists) {
+      if (!patientNumber) {
+        patientNumber = await getUniquePatientNumber();
+      }
+      const check = await pool.query(
+        "SELECT 1 FROM patients WHERE patient_number = $1 LIMIT 1",
+        [patientNumber]
+      );
+      if (check.rows.length === 0) {
+        exists = false;
+      } else {
+        patientNumber = await getUniquePatientNumber();
+      }
+    }
+
+    const newPatient = req.body;
     const result = await pool.query(
       "INSERT INTO patients (patient_number, first_name, last_name, street_address, city, region, country, telephone, contact_email) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
       [
-        newPatient.patient_number,
+        patientNumber,
         newPatient.first_name,
         newPatient.last_name,
         newPatient.street_address,
@@ -117,7 +175,8 @@ app.post("/create-new-patient", async (req, res) => {
 
 // update patient information
 app.put("/update-patient/:patientNumber", async (req, res) => {
-  const patientNumber = req.params.patientNumber;
+  const patientNumber = req.params.patientNumber.toUpperCase();;
+
   const updatedPatient = req.body;
   console.log("Updating patient with patientNumber:", patientNumber);
   console.log("Updated patient data:", updatedPatient);
@@ -149,7 +208,7 @@ app.put("/update-patient/:patientNumber", async (req, res) => {
 
 // delete patient by patient Number
 app.delete("/delete-patient/:patientNumber", async (req, res) => {
-  const patientNumber = req.params.patientNumber;
+  const patientNumber = req.params.patientNumber.toUpperCase();
   try {
     const result = await pool.query("DELETE FROM patients WHERE patient_number = $1 RETURNING *", [patientNumber]);
     if (result.rows.length > 0) {
@@ -167,7 +226,9 @@ app.delete("/delete-patient/:patientNumber", async (req, res) => {
 
 // update patient status
 app.put("/update-patient-status/:patientNumber", async (req, res) => {
-  const patientNumber = req.params.patientNumber;
+  //please delete this toUpperCase() if u have some problem. we needed patientNumber to be case insensitive so i had to add it here
+  const patientNumber = req.params.patientNumber.toUpperCase();;
+
   const currentStatus = req.body.current_status;
   try {
     const result = await pool.query(

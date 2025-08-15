@@ -52,4 +52,3 @@ function Header({ logIn, isAdmin, isSurgeon }) {
   );
 }
 export default Header;
-
