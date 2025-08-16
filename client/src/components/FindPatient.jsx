@@ -30,8 +30,19 @@ async function handleFetchData(event) {
     }
   }
 
+    useEffect(() => {
+    if (notFound) {
+      const timer = setTimeout(() => {
+        setNotFound(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [notFound]);
+ 
+
   if (loading) return <div className="message">Loading patient data...</div>;
-  if (notFound) return <div>No patient found.</div>;
+  if (notFound) return <div>No patient found. Please try again in a moment.</div>;
 
   return (
     <div className="bg-white p-4 m-8 mb-30 rounded-2xl shadow-lg flex flex-col items-center">
