@@ -17,7 +17,6 @@ export default function PatientStatus(){
     const fetchPatients = async () => {
       try {
         const data = await getAllPatients();
-        console.log("Fetched patients:", data);
         data.sort((a, b) => (a.patient_id > b.patient_id ? 1 : -1));
         setPatients(data);
       } catch (err) {

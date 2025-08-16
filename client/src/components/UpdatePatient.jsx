@@ -76,8 +76,6 @@ export default function UpdatePatient() {
           contact_email: formData.email,
         }
       );
-
-      console.log("Update successful:", res.data);
       setShowPopup(true);
     } catch (error) {
       console.error(

@@ -30,9 +30,7 @@ function AppContent() {
   const isSurgeon = isAuthenticated && userRole === "surgical team";
 
   const logIn = () => {
-      console.log("Login button clicked from App.jsx!");
       setShowModal(true);
-      console.log("showModal set to true");
   }
 
   const handleClose = () => {
@@ -46,7 +44,6 @@ function AppContent() {
       const passwordInput = e.target.password.value;
 
       if (usernameInput === "admin" && passwordInput === "admin123") {
-        console.log("Admin logged in");
         setIsAuthenticated(true);
         setUserRole("admin");
         setShowModal(false);
@@ -55,21 +52,14 @@ function AppContent() {
         usernameInput === "surgeon" &&
         passwordInput === "surgeon123"
       ) {
-        console.log("Surgical team logged in");
         setIsAuthenticated(true);
         setUserRole("surgical team");
         setShowModal(false);
      
       } else {
-        console.log("Invalid username or password");
         setIsAuthenticated(false);
       }
     };
-
-
-  console.log("App rendering with logIn function:", typeof logIn);
-  console.log("logIn function value:", logIn); // Debug log
-
 
   return (
 <>

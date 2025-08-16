@@ -72,8 +72,6 @@ export default function AddPatient() {
         telephone: formData.phoneDigits,
         contact_email: formData.email,
       });
-
-      console.log("Patient added:", response.data);
       setShowPopup(true);
 
       setFormData({
@@ -97,9 +95,6 @@ export default function AddPatient() {
   useEffect(() => {
     axios
       .get(`${backendURL}/patients`)
-      .then((res) => {
-        console.log("Data received from backend:", res.data);
-      })
       .catch((err) => {
         console.error("Failed to fetch data from backend:", err);
       });

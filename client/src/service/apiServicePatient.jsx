@@ -20,7 +20,6 @@ export const subscribePatientUpdates = (onUpdate) => {
   eventSource.onmessage = (event) => {
     try {
       const updatedPatient = JSON.parse(event.data);
-      console.log("SSE update received:", updatedPatient);
       onUpdate(updatedPatient); 
     } catch (err) {
       console.error("Error parsing SSE message:", err);

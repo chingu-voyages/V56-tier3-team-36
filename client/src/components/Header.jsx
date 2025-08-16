@@ -7,7 +7,6 @@ import TimeDisplay from "./TimeDisplay";
 // import Link from "react-router-dom/Link";
 
 function Header({ logIn, isAdmin, isSurgeon }) {
-  console.log("Header rendered with logIn function:", typeof logIn); // Debug log
 
   return (
     <div className="w-full z-10">
