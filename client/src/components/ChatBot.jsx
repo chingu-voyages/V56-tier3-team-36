@@ -1,0 +1,118 @@
+import React, { useState, useRef, useEffect } from "react";
+import { GoogleGenAI } from "@google/genai";
+import { FaArrowUp } from "react-icons/fa6";
+import { BsThreeDots } from "react-icons/bs";
+import { TiMessages } from "react-icons/ti";
+
+
+function ChatBot() {
+  const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  const ai = new GoogleGenAI({ apiKey: geminiApiKey });
+  const [userMessage, setUserMessage] = useState("");
+  const [openChat, setOpenChat] = useState(false);
+  const [chatLog, setChatLog] = useState([
+    { role: "assistant", content: "Hi! How can i help you?" },
+  ]);
+  const [responseLoading, setResponseLoading] = useState(false);
+  const chatRef = useRef(null);
+
+
+  useEffect(() => {
+    const el = chatRef.current;
+    if (el) {
+      el.scrollTo({
+        top: el.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+}, [chatLog, responseLoading]);
+
+  const handleChat = async (message) => {
+    setResponseLoading(true);
+    setUserMessage("");
+    setChatLog((prev) => [...prev, { role: "user", content: message }]);
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: [message],
+    });
+    setChatLog((prev) => [
+      ...prev,
+      { role: "assistant", content: response.text },
+    ]);
+    setResponseLoading(false);
+  };
+
+  return (
+    <>
+      <div className="fixed bottom-4 right-4 flex flex-col items-end max-w-xl text-white gap-3">
+        {openChat && (
+          <div className="p-4 ml-4 border flex flex-col justify-right items-right backdrop-blur-2xl bg-white/30 border-gray-300/50 shadow-md rounded-4xl gap-3">
+            <div>
+              <ul
+                ref={chatRef}
+                id="chat-log"
+                className="max-h-96 overflow-y-auto flex flex-col [scrollbar-width:thin]"
+              >
+                {chatLog.map((entry, index) => (
+                  <li
+                    key={index}
+                    className={`mb-2 mx-2 rounded-2xl px-5 py-2 flex flex-col shadow-lg ${
+                      entry.role === "user"
+                        ? "text-right ml-10 rounded-br-sm bg-blue-800/80 "
+                        : "text-left mr-10 rounded-bl-sm bg-gray-600/80 "
+                    }`}
+                  >
+                    <span
+                      className={`font-bold ${
+                        entry.role === "user"
+                          ? "text-blue-300"
+                          : "text-green-300"
+                      }`}
+                    >
+                      {entry.role === "user" ? "You:" : "Surgi:"}
+                    </span>{" "}
+                    {entry.content}
+                  </li>
+                ))}
+                {responseLoading && (
+                  <li className=" text-gray-500 text-left mr-10 rounded-bl-sm mb-2 mx-2 rounded-2xl px-5 py-2 flex flex-col bg-gray-600/80">
+                    <BsThreeDots className="animate-pulse h-8 w-8" />
+                  </li>
+                )}
+              </ul>
+            </div>
+            <div className="border-gray-300 bg-gray-600/50 rounded-full flex px-1 items-center shadow-lg">
+              <input
+                className="border p-2 w-full border-none focus:outline-none"
+                type="text"
+                placeholder="Type your message..."
+                onChange={(e) => setUserMessage(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && userMessage) {
+                    handleChat(userMessage);
+                  }
+                }}
+                value={userMessage}
+              />
+              <button
+                className="bg-blue-500 text-white p-2 rounded-full w-8 h-8 flex items-center justify-center"
+                onClick={() => handleChat(userMessage)}
+                disabled={!userMessage}
+              >
+                <FaArrowUp className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+        )}
+        <button
+          onClick={() => setOpenChat(!openChat)}
+          className="bg-blue-700 text-white rounded-full flex items-center justify-center shadow-md border-blue-950 hover:bg-blue-600 transition-colors duration-300 w-15 h-15"
+        >
+          <TiMessages  className="h-8 w-8 " />
+        </button>
+      </div>
+    </>
+  );
+}
+
+export default ChatBot;

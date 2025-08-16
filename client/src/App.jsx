@@ -15,6 +15,7 @@ import PatientInformation from "./pages/PatientInformation";
 import PatientStatusUpdate from "./pages/PatientStatusUpdate";
 import PatientStatus from "./pages/PatientStatus";
 import Footer from './components/Footer'
+import ChatBot from "./components/ChatBot";
 
 const PrivateRoute = ({ condition, children }) => {
   return condition ? children : <Navigate to="/home" replace />;
@@ -104,6 +105,7 @@ function AppContent() {
 
         <Route path="/patientstatus" element={<PatientStatus />} />
       </Routes>
+      <ChatBot />
       <Footer />
     </>
   );
