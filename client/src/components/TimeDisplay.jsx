@@ -26,13 +26,11 @@ export default function TimeDisplay() {
 
   return (
     <>
-      <h3 className="md:text-3xl text-lg font-bold">{now.toLocaleTimeString()}</h3>
-      <h3 className="md:text-sm text-xs font-medium">
-        {now.toLocaleDateString(undefined, fullDateOptions)}
+      <h3 className="md:text-3xl text-lg font-bold">
+        {now.toLocaleTimeString()}
       </h3>
-      <h3 className="text-blue-600 font-bold text-sm mb-2">
-        Last Updated:{" "}
-        {initialRenderTime.toLocaleTimeString(undefined, shortTimeOptions)}
+      <h3 className="md:text-sm text-blue-600 text-xs font-medium text-right">
+        {now.toLocaleDateString(undefined, fullDateOptions)}
       </h3>
     </>
   );
