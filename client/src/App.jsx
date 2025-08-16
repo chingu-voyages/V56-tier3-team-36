@@ -65,6 +65,13 @@ function AppContent() {
       }
     };
 
+  const handleLogout = (e) => {
+    e.preventDefault();
+    setIsAuthenticated(false);
+    setUserRole(null);
+  };
+
+
 
   console.log("App rendering with logIn function:", typeof logIn);
   console.log("logIn function value:", logIn); // Debug log
@@ -72,7 +79,13 @@ function AppContent() {
 
   return (
 <>
-      <Header logIn={logIn} isAdmin={isAdmin} isSurgeon={isSurgeon} />
+      <Header 
+        logIn={logIn} 
+        handleLogout={handleLogout}
+        isAdmin={isAdmin} 
+        isSurgeon={isSurgeon} 
+        isAuthenticated={isAuthenticated}
+      />
       {showModal && (
         <LogInModal onClose={handleClose} handleLogin={handleLogin} />
       )}
