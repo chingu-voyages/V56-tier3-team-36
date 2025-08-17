@@ -15,7 +15,8 @@ import Home from "./pages/Home";
 import PatientInformation from "./pages/PatientInformation";
 import PatientStatusUpdate from "./pages/PatientStatusUpdate";
 import PatientStatus from "./pages/PatientStatus";
-import Footer from "./components/Footer";
+import Footer from './components/Footer'
+import ChatBot from "./components/ChatBot";
 
 const PrivateRoute = ({ condition, authReady, children }) => {
   if (!authReady) return null;
@@ -137,6 +138,7 @@ function AppContent() {
 
         <Route path="/patientstatus" element={<PatientStatus />} />
       </Routes>
+      <ChatBot />
       <Footer />
     </>
   );
