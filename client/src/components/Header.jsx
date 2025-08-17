@@ -6,7 +6,7 @@ import { LogInModal } from "./LogInModal";
 import TimeDisplay from "./TimeDisplay";
 // import Link from "react-router-dom/Link";
 
-function Header({ logIn, isAdmin, isSurgeon }) {
+function Header({ logIn, handleLogout, isAdmin, isSurgeon, isAuthenticated }) {
   console.log("Header rendered with logIn function:", typeof logIn); // Debug log
 
   return (
@@ -35,15 +35,22 @@ function Header({ logIn, isAdmin, isSurgeon }) {
                         Patient Information
                       </Link>
                     )}
-            {(isAdmin || isSurgeon) && (
+            {(isAuthenticated) && (
                       <Link to="/patientstatusupdate" className="text-sm text-blue-600 hover:underline">
                         Patient Status Update
                       </Link>
                     )}
             <Link to='/patientstatus' className="text-sm text-blue-600 hover:underline">Status Board</Link>
-            <Btn text="Login"
+            {(isAuthenticated) && (
+              <Btn text="Logout"
+                 onClick={handleLogout}
+            />
+            )}
+            {(!isAuthenticated) && (
+              <Btn text="Login"
                  onClick={logIn}
             />
+            )}
           </div>
           
         </div>
