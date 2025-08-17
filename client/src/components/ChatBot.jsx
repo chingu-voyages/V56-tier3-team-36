@@ -16,8 +16,6 @@ function ChatBot() {
   const [responseLoading, setResponseLoading] = useState(false);
   const chatRef = useRef(null);
 
-  const currentPatients = JSON.parse(localStorage.getItem("patients")) || [];
-  const userRole = localStorage.getItem("st_role") || "Guest";
   const chatContext =
     `You are an AI assistant named Surgi, integrated into an app called SurgiTrack.
     SurgiTrack helps users monitor and manage the status of patients undergoing surgery. Each patient progresses through the following surgery steps in order:
@@ -50,7 +48,9 @@ function ChatBot() {
   }, [chatLog, responseLoading]);
 
   const handleChat = async (message) => {
-    const fullMessage = `context:${chatContext}\nUser: ${message} \nPatients: ${JSON.stringify(currentPatients)}\nUser Role: ${userRole}`;
+    const currentPatients = JSON.parse(localStorage.getItem("patients")) || [];
+    const userRole = JSON.parse(localStorage.getItem("st_role")) || "Guest";
+    const fullMessage = `context:${chatContext}\nUser: ${message} \nPatients: ${JSON.stringify(currentPatients)}\nUser Role: ${JSON.stringify(userRole)}`;
     setResponseLoading(true);
     setUserMessage("");
     setChatLog((prev) => [...prev, { role: "user", content: message }]);
