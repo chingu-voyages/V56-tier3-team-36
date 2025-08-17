@@ -22,7 +22,6 @@ async function handleFetchData(event) {
       const data = await getData(searchId, backendUrl);
       setPatientData(data);
       setUpdatePatientStatus(true);
-      console.log(data)
     } catch (err) {
       console.error(err.message);
       setNotFound(true);

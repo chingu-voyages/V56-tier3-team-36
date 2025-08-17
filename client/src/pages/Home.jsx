@@ -24,7 +24,7 @@ function Home() {
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Welcome to Surgery Status Board</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-4">Stay connected with your loved ones during their surgical journey. Our real-time status board provides peace of mind by keeping families informed every step of the way.</p>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <PromoCard 
               bgClassName="bg-blue-200" 
               icon={<IoTimer className="text-blue-700 text-4xl" />}
