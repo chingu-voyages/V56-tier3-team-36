@@ -8,13 +8,19 @@ export default function PatientStatusUpdate({ patient }) {
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-  function getNextStatus(currentStatus) {
-    if (!Array.isArray(patientStatus) || patientStatus.length === 0)
-      return null;
-    const i = patientStatus.indexOf(currentStatus);
-    if (i === -1) return patientStatus[0]; // fallback
-    return patientStatus[(i + 1) % patientStatus.length];
+function getNextStatus(currentStatus) {
+  if (!Array.isArray(patientStatus) || patientStatus.length === 0) {
+    return null;
   }
+  const i = patientStatus.indexOf(currentStatus);
+  if (i === -1) {
+    return patientStatus[0];
+  }
+  if (i === patientStatus.length - 1) {
+    return null;
+  }
+  return patientStatus[i + 1];
+}
 
   function getPrevStatus(currentStatus) {
     if (!Array.isArray(patientStatus) || patientStatus.length === 0)
@@ -30,7 +36,6 @@ export default function PatientStatusUpdate({ patient }) {
   const prevLabel = getPrevStatus(updatedStatus);
 
   useEffect(() => {
-    console.log("Status changed to:", updatedStatus);
   }, [updatedStatus]);
 
   async function handleSubmit(e) {
