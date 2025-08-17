@@ -22,6 +22,7 @@ async function handleFetchData(event) {
       const data = await getData(searchId, backendUrl);
       setPatientData(data);
       setUpdatePatientStatus(true);
+      console.log(data)
     } catch (err) {
       console.error(err.message);
       setNotFound(true);
@@ -53,7 +54,7 @@ async function handleFetchData(event) {
       <form onSubmit={handleFetchData}>
         <p className="mb-4 text-lg font-semi-bold">Patient Number:</p>
         <input
-          className="border border-gray-300 p-2 rounded-xl w-100 text-center"
+          className="border border-gray-300 p-2 rounded-xl w-full text-center"
           type="text"
           value={searchId}
           placeholder="Enter 6-character patient number"

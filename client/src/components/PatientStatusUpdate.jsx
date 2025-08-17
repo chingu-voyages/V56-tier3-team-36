@@ -77,9 +77,9 @@ export default function PatientStatusUpdate({ patient }) {
   }
 
   return (
-    <div className="bg-white px-20 py-10 m-8 mb-30 rounded-2xl shadow-lg flex flex-col items-center">
-      <div className="flex gap-5">
-        <div>
+ <div className="bg-white px-4 sm:px-8 md:px-12 lg:px-20 py-6 sm:py-8 md:py-10 m-4 sm:m-6 md:m-8 rounded-2xl shadow-lg flex flex-col items-center">
+  <div className="flex flex-col sm:flex-row gap-5 w-full max-w-2xl">
+    <div className="w-full">
           <form
             onSubmit={handleSubmit}
             className="flex items-center justify-center flex-col mb-5"
@@ -111,6 +111,11 @@ export default function PatientStatusUpdate({ patient }) {
             <p>
               <span className="font-bold">Telephone: </span>
               {patient.telephone}
+            </p>
+
+              <p>
+              <span className="font-bold">Email: </span>
+              {patient.contact_email}
             </p>
 
             <div className="mt-10 w-full max-w-sm">
