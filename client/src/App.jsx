@@ -18,6 +18,8 @@ import PatientStatus from "./pages/PatientStatus";
 import Footer from './components/Footer'
 import ChatBot from "./components/ChatBot";
 
+import FindPatient from "./components/FindPatient";
+
 const PrivateRoute = ({ condition, authReady, children }) => {
   if (!authReady) return null;
   return condition ? children : <Navigate to="/home" replace />;
@@ -32,6 +34,11 @@ function AppContent() {
 
   const isAdmin = isAuthenticated && userRole === "admin";
   const isSurgeon = isAuthenticated && userRole === "surgical team";
+
+
+
+//recieving data from the FindPatient component
+const [patientData, setPatientData] = useState(null);
 
   useEffect(() => {
     try {
@@ -110,7 +117,16 @@ function AppContent() {
       {showModal && (
         <LogInModal onClose={handleClose} handleLogin={handleLogin} />
       )}
-
+      {/* <FindPatient onPatientData = {handlePatientData} /> */}
+      
+      {/* {patientData && (
+        <PatientStatusUpdate 
+        patient_number={patientData.patient_number}
+        first_name={patientData.first_name}
+        last_name={patientData.last_name}
+        statusOfPatient={patientData.statusOfPatient}
+        />
+      )} */}
       <Routes>
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<Home />} />
