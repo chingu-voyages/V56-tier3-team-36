@@ -1,8 +1,12 @@
 import { BsPersonVcard } from "react-icons/bs";
 
-export default function PersonalInformation({ formData, handleChange }) {
+export default function PersonalInformation({
+  formData,
+  handleChange,
+  phoneError,
+}) {
   return (
-    <div className="bg-[#FFFFFF] p-8 mt-10 text-black max-w-4xl mx-auto rounded-3xl shadow-md">
+    <div className="bg-[#FFFFFF] p-8 mt-10 text-black max-w-4xl max-sm:w-full mx-auto rounded-3xl shadow-md">
       <div className="flex items-start mb-4">
         <div className="bg-green-100 p-2 rounded-full">
           <BsPersonVcard className="text-green-700 text-3xl" />
@@ -47,14 +51,19 @@ export default function PersonalInformation({ formData, handleChange }) {
             Telephone Number <span className="text-red-500">*</span>
           </div>
           <input
-            name="phone"
-            type="number"
-            value={formData.phone}
+            name="phoneDisplay"
+            type="tel"
+            inputMode="numeric"
+            autoComplete="tel"
+            value={formData.phoneDisplay}
             onChange={handleChange}
-            placeholder="(577) 123-4567"
+            placeholder="(555) 123-4567"
             required
             className="border-2 border-gray-300 rounded p-2 w-full bg-[#FFFFFF] text-black placeholder-gray-400"
           />
+          {phoneError && (
+            <div className="text-sm text-red-600 mt-1">{phoneError}</div>
+          )}
         </div>
 
         <div>

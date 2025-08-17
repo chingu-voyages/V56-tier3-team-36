@@ -6,7 +6,7 @@ function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <h3 className="text-lg font-semibold mb-4">Surgery Status Board</h3>
+                    <h3 className="text-lg font-semibold mb-4">SurgiTrack</h3>
                     <p className="text-gray-300 text-sm">Keeping families connected during surgical procedures with real-time updates and peace of mind.</p>
                 </div>
                 
@@ -32,7 +32,7 @@ function Footer() {
             </div>
             
             <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 text-sm">
-                <p>© {new Date().getFullYear()} Surgery Status Board. Built with care for families and medical professionals.</p>
+                <p>© {new Date().getFullYear()} SurgiTrack.</p>
             </div>
         </div>
     </footer>

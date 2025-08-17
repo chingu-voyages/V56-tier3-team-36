@@ -1,66 +1,89 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { BsPersonFill, BsPersonVcard } from "react-icons/bs";
-import { IoLocationSharp } from "react-icons/io5";
 import SixDigitGeneration from "./SixDigitGeneration";
 import PersonalInformation from "./PersonalInformation";
 import AddressInformation from "./AddressInformation";
 import { FaBuildingCircleCheck } from "react-icons/fa6";
 
+const onlyDigits = (v = "") => v.replace(/\D/g, "");
+const formatUSPhone = (digits = "") => {
+  const d = onlyDigits(digits).slice(0, 10);
+  const len = d.length;
+  if (len === 0) return "";
+  if (len < 4) return `(${d}`;
+  if (len < 7) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
+  return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
+};
+const isValidUSPhone10 = (digits = "") => onlyDigits(digits).length === 10;
+
 export default function AddPatient() {
   const backendURL = import.meta.env.VITE_BACKEND_URL;
   const [patientNumber, setPatientNumber] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
 
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    phone: "",
+    phoneDisplay: "", // formatted
+    phoneDigits: "", // raw 10 digits
     street: "",
     city: "",
     state: "",
-    country: "",
+    country: "US",
   });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    if (name === "phone" || name === "phoneDisplay") {
+      const digits = onlyDigits(value).slice(0, 10);
+      const formatted = formatUSPhone(digits);
+      setFormData((prev) => ({
+        ...prev,
+        phoneDisplay: formatted,
+        phoneDigits: digits,
+      }));
+      setPhoneError(digits.length === 10 ? "" : "Enter a 10-digit US number");
+      return;
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post(
-        `${backendURL}/create-new-patient`,
-        {
-          patient_number: patientNumber,
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          street_address: formData.street,
-          city: formData.city,
-          region: formData.state,
-          country: formData.country,
-          telephone: formData.phone,
-          contact_email: formData.email,
-        }
-      );
+    if (!isValidUSPhone10(formData.phoneDigits)) {
+      setPhoneError("Enter a 10-digit US number");
+      return;
+    }
 
-      console.log("Patient added:", response.data);
+    try {
+      const response = await axios.post(`${backendURL}/create-new-patient`, {
+        patient_number: patientNumber,
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        street_address: formData.street,
+        city: formData.city,
+        region: formData.state,
+        country: "US",
+        telephone: formData.phoneDigits,
+        contact_email: formData.email,
+      });
       setShowPopup(true);
 
       setFormData({
         firstName: "",
         lastName: "",
         email: "",
-        phone: "",
+        phoneDisplay: "",
+        phoneDigits: "",
         street: "",
         city: "",
         state: "",
-        country: "",
+        country: "US",
       });
       setPatientNumber("");
     } catch (error) {
@@ -72,9 +95,6 @@ export default function AddPatient() {
   useEffect(() => {
     axios
       .get(`${backendURL}/patients`)
-      .then((res) => {
-        console.log("Data received from backend:", res.data);
-      })
       .catch((err) => {
         console.error("Failed to fetch data from backend:", err);
       });
@@ -87,13 +107,20 @@ export default function AddPatient() {
         setPatientNumber={setPatientNumber}
       />
       <form onSubmit={handleSubmit}>
-        <PersonalInformation formData={formData} handleChange={handleChange} />
+        <PersonalInformation
+          formData={formData}
+          handleChange={handleChange}
+          phoneError={phoneError}
+        />
         <AddressInformation formData={formData} handleChange={handleChange} />
         <div className="mt-10 flex flex-col">
-          <div className="flex flex-row bg-blue-600 text-white font-bold text-l self-center px-8 py-3 rounded-lg mb-4">
+          <button
+            type="submit"
+            className="flex flex-row bg-blue-600 text-white font-bold text-l self-center px-8 py-3 rounded-lg mb-4"
+          >
             <FaBuildingCircleCheck className="text-3xl mr-2" />
-            <button type="submit">Add Patient Information</button>
-          </div>
+            Add Patient Information
+          </button>
           <button
             type="button"
             className="bg-gray-200 font-medium text-gray-600 self-center px-6 py-3 rounded-lg mb-10"
@@ -102,11 +129,12 @@ export default function AddPatient() {
                 firstName: "",
                 lastName: "",
                 email: "",
-                phone: "",
+                phoneDisplay: "",
+                phoneDigits: "",
                 street: "",
                 city: "",
                 state: "",
-                country: "",
+                country: "US",
               })
             }
           >

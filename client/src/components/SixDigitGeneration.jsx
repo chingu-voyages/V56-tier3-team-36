@@ -1,24 +1,22 @@
 import { useState, useEffect } from "react";
 import { BsPersonFill } from "react-icons/bs";
 
-function generatePatientNumber() {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let number = "";
-  for (let i = 0; i < 6; i++) {
-    number += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return number;
-}
-
 export default function SixDigitGeneration({
   patientNumber,
   setPatientNumber,
   isUpdatePage = false,
 }) {
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
+  // comment this useeffect if you want to test 6 digit generation
   useEffect(() => {
     if (!isUpdatePage && !patientNumber) {
-      const newNumber = generatePatientNumber();
-      setPatientNumber(newNumber);
+      fetch(`${backendURL}/generate-patient-number`)
+        .then(res => {
+          if (!res.ok) throw new Error("Failed to fetch patient number");
+          return res.json();
+        })
+        .then(data => setPatientNumber(data.patient_number))
+        .catch(err => console.error("Error fetching patient number:", err));
     }
   }, [isUpdatePage, patientNumber, setPatientNumber]);
 
@@ -36,8 +34,10 @@ export default function SixDigitGeneration({
         <div>Patient Number</div>
         <input
           type="text"
-          value={patientNumber}
+          value={patientNumber ? patientNumber.toUpperCase() : ""}
           readOnly
+          //uncomment this line if you want to test 6 digit generation
+          // onChange={(e) => setPatientNumber(e.target.value)}
           className="border-2 border-gray-300 rounded p-2 bg-[#F9FAFB] text-black"
         />
         <div className="mt-1 text-sm">
