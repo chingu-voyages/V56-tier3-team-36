@@ -6,32 +6,61 @@ import SixDigitGeneration from "./SixDigitGeneration";
 import SearchPatient from "./SearchPatient";
 import { FaBuildingCircleCheck } from "react-icons/fa6";
 
+const onlyDigits = (v = "") => v.replace(/\D/g, "");
+const formatUSPhone = (digits = "") => {
+  const d = onlyDigits(digits).slice(0, 10);
+  const len = d.length;
+  if (len === 0) return "";
+  if (len < 4) return `(${d}`;
+  if (len < 7) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
+  return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
+};
+const isValidUSPhone10 = (digits = "") => onlyDigits(digits).length === 10;
+
 export default function UpdatePatient() {
   const backendURL = import.meta.env.VITE_BACKEND_URL;
   const [patientNumber, setPatientNumber] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [fetchError, setFetchError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
 
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    phone: "",
+    phoneDisplay: "",
+    phoneDigits: "",
     street: "",
     city: "",
     state: "",
-    country: "",
+    country: "US",
   });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    if (name === "phone" || name === "phoneDisplay") {
+      const digits = onlyDigits(value).slice(0, 10);
+      const formatted = formatUSPhone(digits);
+      setFormData((prev) => ({
+        ...prev,
+        phoneDisplay: formatted,
+        phoneDigits: digits,
+      }));
+      setPhoneError(digits.length === 10 ? "" : "Enter a 10-digit US number");
+      return;
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isValidUSPhone10(formData.phoneDigits)) {
+      setPhoneError("Enter a 10-digit US number");
+      return;
+    }
 
     try {
       const res = await axios.put(
@@ -42,8 +71,8 @@ export default function UpdatePatient() {
           street_address: formData.street,
           city: formData.city,
           region: formData.state,
-          country: formData.country,
-          telephone: formData.phone,
+          country: "US",
+          telephone: formData.phoneDigits,
           contact_email: formData.email,
         }
       );
@@ -68,13 +97,19 @@ export default function UpdatePatient() {
             firstName: data.first_name || "",
             lastName: data.last_name || "",
             email: data.contact_email || "",
-            phone: data.telephone || "",
+            phoneDisplay: formatUSPhone(data.telephone || ""),
+            phoneDigits: onlyDigits(data.telephone || "").slice(0, 10),
             street: data.street_address || "",
             city: data.city || "",
             state: data.region || "",
-            country: data.country || "",
+            country: "US",
           });
           setFetchError("");
+          setPhoneError(
+            isValidUSPhone10(onlyDigits(data.telephone || ""))
+              ? ""
+              : "Enter a 10-digit US number"
+          );
         })
         .catch((error) => {
           console.error(
@@ -85,15 +120,17 @@ export default function UpdatePatient() {
             firstName: "",
             lastName: "",
             email: "",
-            phone: "",
+            phoneDisplay: "",
+            phoneDigits: "",
             street: "",
             city: "",
             state: "",
-            country: "",
+            country: "US",
           });
           setFetchError(
             "Patient not found. Please check the patient number and try again."
           );
+          setPhoneError("");
         });
     }
   }, [patientNumber]);
@@ -112,13 +149,20 @@ export default function UpdatePatient() {
         isUpdatePage={true}
       />
       <form onSubmit={handleSubmit}>
-        <PersonalInformation formData={formData} handleChange={handleChange} />
+        <PersonalInformation
+          formData={formData}
+          handleChange={handleChange}
+          phoneError={phoneError}
+        />
         <AddressInformation formData={formData} handleChange={handleChange} />
         <div className="mt-10 flex flex-col">
-          <div className="flex flex-row bg-blue-600 text-white font-bold text-l self-center px-8 py-3 rounded-lg mb-4">
+          <button
+            type="submit"
+            className="flex flex-row bg-blue-600 text-white font-bold text-l self-center px-8 py-3 rounded-lg mb-4"
+          >
             <FaBuildingCircleCheck className="text-3xl mr-2" />
-            <button type="submit">Update patient information</button>
-          </div>
+            Update patient information
+          </button>
           <button
             type="button"
             className="bg-gray-200 font-medium text-gray-600 self-center px-6 py-3 rounded-lg mb-10"
@@ -127,11 +171,12 @@ export default function UpdatePatient() {
                 firstName: "",
                 lastName: "",
                 email: "",
-                phone: "",
+                phoneDisplay: "",
+                phoneDigits: "",
                 street: "",
                 city: "",
                 state: "",
-                country: "",
+                country: "US",
               })
             }
           >
@@ -145,7 +190,7 @@ export default function UpdatePatient() {
             <h2 className="text-xl font-bold mb-2">
               Form submission successful
             </h2>
-            <p>Patient added to the system successfully.</p>
+            <p>Patient information updated successfully.</p>
             <button
               onClick={() => setShowPopup(false)}
               className="mt-4 px-4 py-2 bg-green-600 text-black rounded"

@@ -90,6 +90,9 @@ V56-tier3-team-36/
 - Marissa Lamothe: [GitHub](https://github.com/msrissaxox) / [LinkedIn](https://www.linkedin.com/in/marissalamothe/)
 - Spandan Mahat: [GitHub](https://github.com/spandanmahat00) / [LinkedIn](https://linkedin.com/in/liaccountname)
 
+- Voyage Guide - Lindsay Allen: [GitHub](https://github.com/lkallen) / [LinkedIn](https://www.linkedin.com/in/lindsay-allen-54b46937/)
+
+
 ## 🏢 About Chingu
 
 This project is part of the [Chingu Voyage](https://www.chingu.io/) program, a global community that connects developers of all skill levels to collaborate on real-world projects. Chingu provides a supportive environment for learning, teamwork, and professional growth through hands-on experience building software in remote teams.
