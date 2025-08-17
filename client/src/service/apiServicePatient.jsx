@@ -5,6 +5,7 @@ const patientsApiUrl = import.meta.env.VITE_BACKEND_URL;
 export const getAllPatients = async () => {
   try {
     const response = await axios.get(`${patientsApiUrl}/patients`);
+    localStorage.setItem("patients", JSON.stringify(response.data));
     return response.data;
   } catch (error) {
     throw Error(`Error fetching patients: ${error.message}`);
