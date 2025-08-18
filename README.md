@@ -83,7 +83,12 @@ Developed using React and TailwindCSS.
 Developed using NodeJS and PostgreSQL.
 
     Dependencies:
-    "react-icons": "^5.5.0"
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10",
+    "pg": "^8.16.3"
 
 ### Deployment ###
 Deployed using Vercel for frontend and backend.
