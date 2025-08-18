@@ -10,11 +10,11 @@ We further recommend [**Node Package Manager (NPM)**](https://www.npmjs.com/pack
 ## Quick start
 This is only if you are trying to run the website yourself in VScode or similar IDE. If that is not the case, please just access the website using this link:
 
-v56-tier3-team-36.vercel.app
+https://v56-tier3-team-36.vercel.app
 
-Demo Accounts:
-Admin: admin / admin123
-Surgical Team: surgeon / surgeon123
+### Demo Accounts: ###
+- Admin: admin / admin123
+- Surgical Team: surgeon / surgeon123
 
 ### Frontend ###
 1a. **If you are not in the `client` folder, move there:**
@@ -46,8 +46,7 @@ npm run build
     - npm install
     - nodemon server.js
 
-For the frontend, you will need to initialize these values in your .env file: VITE_BACKEND_URL,VITE_GEMINI_API_KEY
-For the backend: PGHOST, PGDATABASE, PGUSER, PGPASSWORD, PGSSLMODE, PGCHANNELBINDING, PGPORT, PORT
+For the frontend, you will need to initialize these values in your .env file: VITE_BACKEND_URL,VITE_GEMINI_API_KEY. For the backend: PGHOST, PGDATABASE, PGUSER, PGPASSWORD, PGSSLMODE, PGCHANNELBINDING, PGPORT, PORT
 
 ## Features
 
@@ -65,34 +64,34 @@ For the backend: PGHOST, PGDATABASE, PGUSER, PGPASSWORD, PGSSLMODE, PGCHANNELBIN
 The SurgiTrack Surgery Status Board is currently built using the following technologies:
 
 ### Frontend ###
-    Developed using React and TailwindCSS.
+Developed using React and TailwindCSS.
     
     Dependencies:
-        "@google/genai": "^1.14.0",
-        "@headlessui/react": "^2.2.6",
-        "@heroicons/react": "^2.2.0",
-        "@tailwindcss/vite": "^4.1.11",
-        "axios": "^1.11.0",
-        "react": "^19.1.0",
-        "react-dom": "^19.1.0",
-        "react-icons": "^5.5.0",
-        "react-markdown": "^10.1.0",
-        "react-router-dom": "^7.6.3",
-        "tailwindcss": "^4.1.11"
+    "@google/genai": "^1.14.0",
+    "@headlessui/react": "^2.2.6",
+    "@heroicons/react": "^2.2.0",
+    "@tailwindcss/vite": "^4.1.11",
+    "axios": "^1.11.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-icons": "^5.5.0",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.6.3",
+    "tailwindcss": "^4.1.11"
 
 ### Backend ###
-    Developed using NodeJS and PostgreSQL.
+Developed using NodeJS and PostgreSQL.
 
     Dependencies:
-        "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0"
 
 ### Deployment ###
-    Deployed using Vercel for frontend and backend.
-    Database was deployed on Neon.
+Deployed using Vercel for frontend and backend.
+Database was deployed on Neon.
 
-    Please use this link to access the website. You will see the default login username and password once you get to the website as well:
+Please use this link to access the website. You will see the default login username and password once you get to the website as well:
 
-    v56-tier3-team-36.vercel.app
+https://v56-tier3-team-36.vercel.app
 ## Folder Structure
 
 ```
