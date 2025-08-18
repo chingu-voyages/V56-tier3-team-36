@@ -8,7 +8,7 @@ function Header({ logIn, handleLogout, isAuthenticated, isAdmin, isSurgeon }) {
   return (
     <div className="w-full mb-10">
       <header
-        className="text-white bg-gray-800 font-bold flex flex-col top-0 left-0 fixed w-full">
+        className="text-white bg-gray-800 font-bold flex flex-col top-0 left-0 fixed w-full z-50">
         <div className="flex w-full items-center">
           <div className="flex items-center">
             <BsHospital className="text-2xl sm:text-4xl md:text-6xl m-3 md:m-4 text-blue-600" />
